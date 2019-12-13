@@ -2,11 +2,11 @@ package main
 
 import (
 	_ "github.com/glvd/backmanage/adapter/gin"
-	_ "github.com/glvd/backmanage/db/drivers/mysql"
 	"github.com/glvd/backmanage/echarts"
 	"github.com/glvd/go-admin/template/chartjs"
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"
+	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/gin-gonic/gin"
 	"github.com/glvd/backmanage/datamodel"
