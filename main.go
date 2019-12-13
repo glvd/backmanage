@@ -8,10 +8,10 @@ import (
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"
 
-	"github.com/GoAdminGroup/demo/login"
-	"github.com/GoAdminGroup/demo/pages"
 	"github.com/gin-gonic/gin"
 	"github.com/glvd/backmanage/datamodel"
+	"github.com/glvd/backmanage/login"
+	"github.com/glvd/backmanage/pages"
 	"github.com/glvd/go-admin/engine"
 	"github.com/glvd/go-admin/modules/config"
 	"github.com/glvd/go-admin/plugins/admin"
@@ -81,5 +81,7 @@ func main() {
 	})
 
 	e := r.Run(":9033")
-
+	if e != nil {
+		panic(e)
+	}
 }
