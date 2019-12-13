@@ -1,22 +1,22 @@
 package main
 
 import (
-	"github.com/glvd/components/echarts"
-	_ "github.com/glvd/go-admin/adapter/gin"
-	_ "github.com/glvd/backmanage/db/mysql"
+	"github.com/GoAdminGroup/components/echarts"
+	_ "github.com/glvd/backmanage/adapter/gin"
+	_ "github.com/glvd/backmanage/db/drivers/mysql"
 	"github.com/glvd/go-admin/template/chartjs"
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"
 
-	"github.com/glvd/demo/login"
-	"github.com/glvd/demo/pages"
+	"github.com/GoAdminGroup/demo/login"
+	"github.com/GoAdminGroup/demo/pages"
+	"github.com/gin-gonic/gin"
+	"github.com/glvd/backmanage/datamodel"
 	"github.com/glvd/go-admin/engine"
-	"github.com/glvd/go-admin/examples/datamodel"
 	"github.com/glvd/go-admin/modules/config"
 	"github.com/glvd/go-admin/plugins/admin"
 	"github.com/glvd/go-admin/template"
 	"github.com/glvd/go-admin/template/types"
-	"github.com/gin-gonic/gin"
 	template2 "html/template"
 	"net/http"
 )
