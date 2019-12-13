@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/GoAdminGroup/components/echarts"
 	_ "github.com/glvd/backmanage/adapter/gin"
 	_ "github.com/glvd/backmanage/db/drivers/mysql"
+	"github.com/glvd/backmanage/echarts"
 	"github.com/glvd/go-admin/template/chartjs"
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"

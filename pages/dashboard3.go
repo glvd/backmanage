@@ -1,7 +1,7 @@
 package pages
 
 import (
-	"github.com/glvd/components/echarts"
+	"github.com/glvd/backmanage/echarts"
 	"github.com/glvd/go-admin/modules/config"
 	template2 "github.com/glvd/go-admin/template"
 	"github.com/glvd/go-admin/template/types"
