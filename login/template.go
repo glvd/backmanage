@@ -70,9 +70,6 @@ var List = map[string]string{"login/theme1": `{{define "login_theme1"}}
 
     <script src="{{link .CdnUrl .UrlPrefix "/assets/login/dist/all.min.js"}}"></script>
 
-    <div style="display:none;">
-        <script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1278156902&web_id=1278156902"></script>
-    </div>
     <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
     <script>
 

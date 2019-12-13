@@ -43,9 +43,9 @@ func main() {
 	rootPath := "."
 
 	cfg := config.ReadFromJson(rootPath + "/config.json")
-	cfg.CustomFootHtml = template2.HTML(`<div style="display:none;">
-    <script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1278156902&web_id=1278156902"></script>
-</div>`)
+	//cfg.CustomFootHtml = template2.HTML(`<div style="display:none;">
+	//<script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1278156902&web_id=1278156902"></script>
+	//</div>`)
 	cfg.CustomHeadHtml = template2.HTML(`<link rel="icon" type="image/png" sizes="32x32" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-64x64.png">
         <link rel="icon" type="image/png" sizes="16x16" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-16x16.png">`)
