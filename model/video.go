@@ -33,3 +33,7 @@ type Video struct {
 	Sample       []string `xorm:"json sample" json:"sample"`          //样板图
 	Uncensored   bool     `xorm:"uncensored" json:"uncensored"`       //有码,无码
 }
+
+func init() {
+
+}
