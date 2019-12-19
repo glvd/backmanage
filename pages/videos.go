@@ -62,7 +62,7 @@ func GetVideoContent() (types.Panel, error) {
 		},
 	}).SetThead([]map[string]string{
 		{
-			"head":     "订单号",
+			"head":     "视频编号",
 			"sortable": "0",
 		}, {
 			"head":     "商品",
