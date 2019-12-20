@@ -1,6 +1,14 @@
 package model
 
-import "time"
+import (
+	"fmt"
+	"github.com/glvd/go-admin/modules/config"
+	"github.com/xormsharp/xorm"
+	"net/url"
+	"time"
+)
+
+const mysqlSource = "%s:%s@tcp(%s)/%s?loc=%s&charset=utf8mb4&parseTime=true"
 
 // Model ...
 type model struct {
@@ -14,4 +22,29 @@ type model struct {
 // Model ...
 type Model struct {
 	model `xorm:"extends"`
+}
+
+var _db *xorm.Engine
+
+// DB ...
+func DB() *xorm.Engine {
+	return _db
+}
+
+// InitDatabase ...
+func InitDatabase(cfg config.Config) {
+	_db = connect(cfg)
+}
+
+func connect(cfg config.Config) *xorm.Engine {
+	db := cfg.Databases.GetDefault()
+	engine, err := xorm.NewEngine(db.Driver, source(db.User, db.Pwd, db.Host+":"+db.Port, db.Name))
+	if err != nil {
+		panic(err)
+	}
+	return engine
+}
+
+func source(name, pass, addr, dbname string) string {
+	return fmt.Sprintf(mysqlSource, name, pass, addr, dbname, url.QueryEscape("Asia/Shanghai"))
 }

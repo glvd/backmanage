@@ -26,7 +26,12 @@ func GetVideosTable() (videosTable table.Table) {
 		}
 		return "<img src=\"/uploads/" + value.Value + "\"/>"
 	})
-	info.AddField("VideoInfo", "video_info", db.Text)
+	info.AddField("VideoInfo", "video_info", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
+		if value.Value == "" {
+			return ""
+		}
+		return "abc"
+	})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
@@ -34,7 +39,7 @@ func GetVideosTable() (videosTable table.Table) {
 
 	//edit/add form
 	formList := videosTable.GetForm()
-	formList.SetInsertFn(func(values form2.Values) error {
+	formList.SetBeforeInsert(func(values form2.Values) error {
 		fmt.Println("hook", values.Get("vid"), values.IsEmpty("vid"))
 		if values.IsEmpty("vid") {
 			values.Add("vid", uuid.NewV1().String())
@@ -44,7 +49,7 @@ func GetVideosTable() (videosTable table.Table) {
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
 	formList.AddField("VID", "vid", db.Varchar, form.Text).FieldNotAllowEdit().FieldHide()
 	formList.AddField("Poster", "poster", db.Text, form.File)
-	formList.AddField("VideoInfo", "video_info", db.Text, form.TextArea)
+	formList.AddField("VideoInfo", "video_info", db.Text, form.TextArea).FieldDefault(uuid.NewV1().String()).FieldNotAllowEdit()
 	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd().FieldHide()
 	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd().FieldHide()
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
