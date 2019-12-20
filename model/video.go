@@ -1,5 +1,6 @@
 package model
 
+// Video ...
 type Video struct {
 	Model        `xorm:"extends" json:"-"`
 	No           string   `xorm:"no" json:"no"`                       //编号
