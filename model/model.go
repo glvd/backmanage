@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"github.com/glvd/go-admin/modules/config"
+	"github.com/jinzhu/gorm"
 	"github.com/xormsharp/xorm"
 	"net/url"
 	"reflect"
@@ -25,7 +26,7 @@ type Model struct {
 	model `xorm:"extends"`
 }
 
-var _db *xorm.Engine
+var _db *gorm.DB
 var syncTable = make(map[string]interface{})
 
 func init() {
@@ -33,7 +34,7 @@ func init() {
 }
 
 // DB ...
-func DB() *xorm.Engine {
+func DB() *gorm.DB {
 	return _db
 }
 
@@ -42,8 +43,8 @@ func InitDatabase(cfg config.Config) {
 	_db = connect(cfg.Databases.GetDefault())
 }
 
-func connect(db config.Database) *xorm.Engine {
-	engine, err := xorm.NewEngine(db.Driver, source(db.User, db.Pwd, db.Host+":"+db.Port, db.Name))
+func connect(db config.Database) *gorm.DB {
+	engine, err := gorm.Open(db.Driver, source(db.User, db.Pwd, db.Host+":"+db.Port, db.Name))
 	if err != nil {
 		panic(err)
 	}

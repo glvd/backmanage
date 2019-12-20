@@ -9,6 +9,7 @@ require (
 	github.com/go-echarts/go-echarts v0.0.0-20190915064101-cbb3b43ade5d
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gobuffalo/packr v1.30.1 // indirect
+	github.com/jinzhu/gorm v1.9.11
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/satori/go.uuid v1.2.0
