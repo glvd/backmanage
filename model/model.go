@@ -33,11 +33,10 @@ func DB() *xorm.Engine {
 
 // InitDatabase ...
 func InitDatabase(cfg config.Config) {
-	_db = connect(cfg)
+	_db = connect(cfg.Databases.GetDefault())
 }
 
-func connect(cfg config.Config) *xorm.Engine {
-	db := cfg.Databases.GetDefault()
+func connect(db config.Database) *xorm.Engine {
 	engine, err := xorm.NewEngine(db.Driver, source(db.User, db.Pwd, db.Host+":"+db.Port, db.Name))
 	if err != nil {
 		panic(err)

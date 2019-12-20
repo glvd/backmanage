@@ -3,6 +3,7 @@ package main
 import (
 	_ "github.com/glvd/backmanage/adapter/gin"
 	"github.com/glvd/backmanage/datamodel"
+	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/plugins/admin"
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"
@@ -49,6 +50,8 @@ func main() {
 	if err := eng.AddConfig(cfg).AddPlugins(adminPlugin).Use(r); err != nil {
 		panic(err)
 	}
+
+	model.InitDatabase(cfg)
 
 	r.Static("/uploads", rootPath+"/uploads")
 
