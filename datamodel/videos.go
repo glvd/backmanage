@@ -1,6 +1,7 @@
 package datamodel
 
 import (
+	"fmt"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
@@ -32,8 +33,12 @@ func GetVideosTable() (videosTable table.Table) {
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 
 	//edit/add form
-	formList := videosTable.GetForm().SetInsertFn(func(values form2.Values) error {
-		values.Add("vid", uuid.NewV1().String())
+	formList := videosTable.GetForm()
+	formList.SetInsertFn(func(values form2.Values) error {
+		fmt.Println("hook", values.Get("vid"), values.IsEmpty("vid"))
+		if values.IsEmpty("vid") {
+			values.Add("vid", uuid.NewV1().String())
+		}
 		return nil
 	})
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
