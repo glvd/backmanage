@@ -55,11 +55,11 @@ func main() {
 
 	// you can custom your pages like:
 
-	//r.GET("/admin", func(ctx *gin.Context) {
-	//	eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
-	//		return pages.GetDashBoard2Content()
-	//	})
-	//})
+	r.GET("/admin", func(ctx *gin.Context) {
+		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
+			return pages.GetDashBoard2Content()
+		})
+	})
 
 	//r.GET("/admin/dash", func(ctx *gin.Context) {
 	//	//	eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
