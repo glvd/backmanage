@@ -5,6 +5,7 @@ import (
 	"github.com/glvd/go-admin/modules/config"
 	"github.com/xormsharp/xorm"
 	"net/url"
+	"reflect"
 	"time"
 )
 
@@ -25,6 +26,11 @@ type Model struct {
 }
 
 var _db *xorm.Engine
+var syncTable = make(map[string]interface{})
+
+func init() {
+
+}
 
 // DB ...
 func DB() *xorm.Engine {
@@ -46,4 +52,22 @@ func connect(db config.Database) *xorm.Engine {
 
 func source(name, pass, addr, dbname string) string {
 	return fmt.Sprintf(mysqlSource, name, pass, addr, dbname, url.QueryEscape("Asia/Shanghai"))
+}
+
+// RegisterTable ...
+func RegisterTable(v interface{}) {
+	name := reflect.TypeOf(v).String()
+	syncTable[name] = v
+}
+
+// Sync ...
+func Sync(engine *xorm.Engine) error {
+	for s, i := range syncTable {
+		fmt.Println("syncing", s)
+		err := engine.Sync2(i)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

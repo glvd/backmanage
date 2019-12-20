@@ -53,6 +53,10 @@ func main() {
 
 	model.InitDatabase(cfg)
 
+	err := model.Sync(model.DB())
+	if err != nil {
+		panic(err)
+	}
 	r.Static("/uploads", rootPath+"/uploads")
 
 	// you can custom your pages like:
