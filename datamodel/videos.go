@@ -2,6 +2,7 @@ package datamodel
 
 import (
 	"github.com/glvd/go-admin/modules/db"
+	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
@@ -31,13 +32,16 @@ func GetVideosTable() (videosTable table.Table) {
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 
 	//edit/add form
-	formList := videosTable.GetForm()
+	formList := videosTable.GetForm().SetInsertFn(func(values form2.Values) error {
+		values.Add("vid", uuid.NewV1().String())
+		return nil
+	})
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
-	formList.AddField("VID", "vid", db.Varchar, form.Text).FieldNotAllowEdit().FieldDefault(uuid.NewV1().String())
+	formList.AddField("VID", "vid", db.Varchar, form.Text).FieldNotAllowEdit().FieldHide()
 	formList.AddField("Poster", "poster", db.Text, form.File)
 	formList.AddField("VideoInfo", "video_info", db.Text, form.TextArea)
-	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
-	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
+	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd().FieldHide()
+	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd().FieldHide()
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
 }
