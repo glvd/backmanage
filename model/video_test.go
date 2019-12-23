@@ -3,7 +3,6 @@ package model
 import (
 	"github.com/glvd/go-admin/modules/config"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	"testing"
 )
 
@@ -31,7 +30,6 @@ func TestInsertVideo(t *testing.T) {
 			name: "",
 			args: args{
 				video: &Video{
-					Model: gorm.Model{},
 					No:    "1",
 					Intro: "",
 					Alias: []*Alias{{
@@ -64,10 +62,8 @@ func TestInsertVideo(t *testing.T) {
 					Length:       "",
 					Sample: []*Sample{
 						{
-							Model:      gorm.Model{},
-							VideoRefer: "",
-							Index:      "1",
-							Addr:       "SampleLink",
+							Index: "1",
+							Addr:  "SampleLink",
 						},
 					},
 					Uncensored: false,

@@ -1,38 +1,33 @@
 package model
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 // Alias ...
 type Alias struct {
-	gorm.Model
+	Model
 	Name string //alias name
 }
 
 // Role ...
 type Role struct {
-	gorm.Model
+	Model
 	Name string //role name
 }
 
 // Tag ...
 type Tag struct {
-	gorm.Model
+	Model
 	Name string //tag name
 }
 
 // Sample ...
 type Sample struct {
-	gorm.Model
-	VideoRefer string
-	Index      string
-	Addr       string //sample address
+	Model
+	Index string
+	Addr  string //sample address
 }
 
 // Video ...
 type Video struct {
-	gorm.Model
+	Model
 	No           string    `gorm:"no" json:"no"`                         //编号
 	Intro        string    `gorm:"varchar(2048)" json:"intro"`           //简介
 	Alias        []*Alias  `gorm:"many2many:video_aliases" json:"alias"` //别名，片名
@@ -61,7 +56,7 @@ type Video struct {
 	Series       string    `gorm:"series" json:"series"`                 //系列
 	Tags         []*Tag    `gorm:"many2many:video_tags" json:"tags"`     //标签
 	Length       string    `gorm:"length" json:"length"`                 //时长
-	Sample       []*Sample `gorm:"foreignkey:VideoRefer" json:"sample"`  //样板图
+	Sample       []*Sample `gorm:"foreignkey:id" json:"sample"`          //样板图
 	Uncensored   bool      `gorm:"uncensored" json:"uncensored"`         //有码,无码
 }
 

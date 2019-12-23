@@ -79,7 +79,10 @@ func Sync(db *gorm.DB) error {
 	return nil
 }
 
-// BeforeSave ...
-func (m *Model) BeforeSave() {
-	m.ID = uuid.NewV1().String()
+// BeforeCreate ...
+func (m *Model) BeforeCreate(scope *gorm.Scope) error {
+	if _, b := scope.Get("ID"); !b {
+		return scope.SetColumn("ID", uuid.NewV1().String())
+	}
+	return nil
 }
