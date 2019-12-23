@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/glvd/go-admin/modules/config"
 	"github.com/jinzhu/gorm"
-	"github.com/xormsharp/xorm"
 	"net/url"
 	"reflect"
 	"time"
@@ -48,6 +47,11 @@ func connect(db config.Database) *gorm.DB {
 	if err != nil {
 		panic(err)
 	}
+	//设置默认表名前缀
+	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
+		return "dhash_" + defaultTableName
+	}
+
 	return engine
 }
 
@@ -56,18 +60,23 @@ func source(name, pass, addr, dbname string) string {
 }
 
 // RegisterTable ...
-func RegisterTable(v interface{}) {
-	name := reflect.TypeOf(v).String()
-	syncTable[name] = v
+func RegisterTable(v ...interface{}) {
+	var name string
+	for _, t := range v {
+		name = reflect.TypeOf(t).String()
+		syncTable[name] = t
+	}
+
 }
 
 // Sync ...
-func Sync(engine *xorm.Engine) error {
+func Sync(db *gorm.DB) error {
+
 	for s, i := range syncTable {
 		fmt.Println("syncing", s)
-		err := engine.Sync2(i)
-		if err != nil {
-			return err
+		d := db.AutoMigrate(i)
+		if d.Error != nil {
+			return d.Error
 		}
 	}
 	return nil
