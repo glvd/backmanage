@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/glvd/go-admin/modules/config"
 	"github.com/jinzhu/gorm"
+	uuid "github.com/satori/go.uuid"
 	"net/url"
 	"reflect"
 	"time"
@@ -11,18 +12,15 @@ import (
 
 const mysqlSource = "%s:%s@tcp(%s)/%s?loc=%s&charset=utf8mb4&parseTime=true"
 
-// Model ...
-type model struct {
-	ID        string     `xorm:"id pk"`
-	CreatedAt time.Time  `xorm:"created_at created"`
-	UpdatedAt time.Time  `xorm:"updated_at updated"`
-	DeletedAt *time.Time `xorm:"deleted_at deleted"`
-	Version   int        `xorm:"version"`
-}
-
-// Model ...
+// Model base model definition, including fields `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt`, which could be embedded in your models
+//    type User struct {
+//      gorm.Model
+//    }
 type Model struct {
-	model `xorm:"extends"`
+	ID        string `gorm:"primary_key"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time `sql:"index"`
 }
 
 var _db *gorm.DB
@@ -79,4 +77,9 @@ func Sync(db *gorm.DB) error {
 		}
 	}
 	return nil
+}
+
+// BeforeSave ...
+func (m *Model) BeforeSave() {
+	m.ID = uuid.NewV1().String()
 }
