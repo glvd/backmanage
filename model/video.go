@@ -39,9 +39,9 @@ type Video struct {
 	ThumbHash    string    `gorm:"thumb_hash" json:"thumb_hash"`         //缩略图
 	PosterHash   string    `gorm:"poster_hash" json:"poster_hash"`       //海报地址
 	SourceHash   string    `gorm:"source_hash" json:"source_hash"`       //原片地址
-	M3U8Hash     string    `gorm:"column(m3u8_hash)" json:"m3u8_hash"`   //切片地址
+	M3U8Hash     string    `gorm:"column:m3u8_hash" json:"m3u8_hash"`    //切片地址
 	Key          string    `gorm:"key"  json:"-"`                        //秘钥
-	M3U8         string    `gorm:"column(m3u8)" json:"-"`                //M3U8名
+	M3U8         string    `gorm:"column:m3u8" json:"-"`                 //M3U8名
 	Roles        []*Role   `gorm:"many2many:video_roles" json:"role"`    //主演
 	Director     string    `gorm:"director" json:"director"`             //导演
 	Systematics  string    `gorm:"systematics" json:"systematics"`       //分级
@@ -67,4 +67,13 @@ type Video struct {
 
 func init() {
 	RegisterTable(Video{}, Sample{}, Tag{}, Role{}, Alias{})
+}
+
+// InsertVideo ...
+func InsertVideo(video *Video) error {
+	db := DB().Create(video)
+	if db.Error != nil {
+		return db.Error
+	}
+	return nil
 }
