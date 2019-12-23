@@ -71,7 +71,6 @@ func RegisterTable(v ...interface{}) {
 
 // Sync ...
 func Sync(db *gorm.DB) error {
-
 	for s, i := range syncTable {
 		fmt.Println("syncing", s)
 		d := db.AutoMigrate(i)
