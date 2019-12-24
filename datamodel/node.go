@@ -30,8 +30,8 @@ func GetNodeTable() (videosTable table.Table) {
 		return nil
 	})
 
-	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowEdit()
-	formList.AddField("NodeConfig", "node_config", db.Text, form.TextArea).FieldNotAllowAdd()
+	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
+	formList.AddField("ConfigPath", "config_path", db.Text, form.TextArea).FieldNotAllowEdit()
 	formList.AddField("NodeAddr", "node_addr", db.Text, form.TextArea).FieldNotAllowAdd()
 	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()

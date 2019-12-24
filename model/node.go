@@ -193,3 +193,7 @@ type Node struct {
 	NodeAddr   string
 	ConfigPath string
 }
+
+func init() {
+	RegisterTable(Node{})
+}
