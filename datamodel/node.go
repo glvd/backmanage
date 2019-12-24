@@ -5,6 +5,7 @@ import (
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
+	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 )
 
@@ -19,7 +20,15 @@ func GetNodeTable() (videosTable table.Table) {
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("NodeID", "node_id", db.Varchar)
 	info.AddField("NodeAddr", "node_addr", db.Text)
-	info.AddField("NodeStatus", "node_status", db.Int)
+	info.AddField("NodeStatus", "node_status", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
+		if value.Value == "0" {
+			return "异常"
+		}
+		return "正常"
+	})
+	info.AddField("Interval", "interval", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
+		return value.Value + " 秒"
+	})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
@@ -29,9 +38,11 @@ func GetNodeTable() (videosTable table.Table) {
 	formList := videosTable.GetForm()
 	formList.SetBeforeInsert(NodeInfo)
 	formList.SetBeforeUpdate(NodeInfo)
+	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text)
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
+	formList.AddField("Interval", "interval", db.Int, form.Text)
 	//formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
 	//formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
 	formList.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
