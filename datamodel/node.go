@@ -27,11 +27,12 @@ func GetNodeTable() (videosTable table.Table) {
 	//edit/add form
 	formList := videosTable.GetForm()
 	formList.SetBeforeInsert(func(values form2.Values) error {
+
 		return nil
 	})
 
+	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text)
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
-	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text).FieldNotAllowAdd()
 	formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()
