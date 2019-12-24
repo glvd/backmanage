@@ -17,7 +17,7 @@ func GetNodeTable() (videosTable table.Table) {
 	info := videosTable.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("NodeID", "node_id", db.Varchar)
-	info.AddField("NodeConfig", "node_config", db.Text)
+	info.AddField("ConfigPath", "config_path", db.Text)
 	info.AddField("NodeAddr", "node_addr", db.Text)
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
@@ -35,7 +35,7 @@ func GetNodeTable() (videosTable table.Table) {
 	formList.AddField("NodeAddr", "node_addr", db.Text, form.TextArea).FieldNotAllowAdd()
 	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()
-	formList.SetTable("dhash_nodes").SetTitle("Nodes").SetDescription("Nodes")
+	formList.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
 
 	return
 }
