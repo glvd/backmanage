@@ -17,8 +17,8 @@ func GetNodeTable() (videosTable table.Table) {
 	info := videosTable.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("NodeID", "node_id", db.Varchar)
-	info.AddField("ConfigPath", "config_path", db.Text)
 	info.AddField("NodeAddr", "node_addr", db.Text)
+	info.AddField("NodeStatus", "node_status", db.Int)
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
@@ -31,8 +31,8 @@ func GetNodeTable() (videosTable table.Table) {
 	})
 
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
-	formList.AddField("ConfigPath", "config_path", db.Text, form.TextArea).FieldNotAllowEdit()
 	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text).FieldNotAllowAdd()
+	formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
