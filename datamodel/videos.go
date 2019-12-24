@@ -15,7 +15,6 @@ func GetVideosTable() (videosTable table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"
-
 	videosTable = table.NewDefaultTable(cfg)
 	info := videosTable.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
@@ -49,8 +48,8 @@ func GetVideosTable() (videosTable table.Table) {
 	formList.AddField("VID", "vid", db.Varchar, form.Text).FieldNotAllowEdit().FieldHide()
 	formList.AddField("Poster", "poster", db.Text, form.File)
 	formList.AddField("VideoInfo", "video_info", db.Text, form.TextArea).FieldNotAllowEdit()
-	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd().FieldHide()
-	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd().FieldHide()
+	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
+	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
 }
