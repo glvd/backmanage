@@ -18,19 +18,14 @@ func GetVideosTable() (videosTable table.Table) {
 	videosTable = table.NewDefaultTable(cfg)
 	info := videosTable.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
-	info.AddField("VID", "vid", db.Varchar)
 	info.AddField("Poster", "poster", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "" {
 			return ""
 		}
 		return "<img src=\"/uploads/" + value.Value + "\"/>"
 	})
-	info.AddField("VideoInfo", "video_info", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
-		if value.Value == "" {
-			return ""
-		}
-		return "abc"
-	})
+
+	info.AddField("VID", "vid", db.Varchar)
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
@@ -45,9 +40,8 @@ func GetVideosTable() (videosTable table.Table) {
 		}
 		return nil
 	})
-	formList.AddField("VID", "vid", db.Varchar, form.Text).FieldNotAllowEdit().FieldHide()
 	formList.AddField("Poster", "poster", db.Text, form.File)
-	formList.AddField("VideoInfo", "video_info", db.Text, form.TextArea).FieldNotAllowEdit()
+	formList.AddField("VID", "vid", db.Varchar, form.Text).FieldNotAllowEdit().FieldHide()
 	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
 	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")

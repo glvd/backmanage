@@ -41,7 +41,7 @@ func GetNodeTable() (videosTable table.Table) {
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text)
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
-	formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
+	//formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("Interval", "interval", db.Int, form.Text)
 	//formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
 	//formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
@@ -62,8 +62,13 @@ func NodeInfo(values form2.Values) error {
 		values.Add("node_status", "0")
 		return nil
 	}
+
+	if n.ID() == nil {
+		values.Add("node_status", "0")
+		return nil
+	}
+	values.Add("node_id", n.ID().ID)
 	node.AddNode(addr, n)
 	values.Add("node_status", "1")
-	values.Add("node_id", n.ID().ID)
 	return nil
 }
