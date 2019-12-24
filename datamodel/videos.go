@@ -25,7 +25,7 @@ func GetVideosTable() (videosTable table.Table) {
 		return "<img src=\"/uploads/" + value.Value + "\"/>"
 	})
 
-	info.AddField("VID", "vid", db.Varchar)
+	info.AddField("VideoNo", "video_no", db.Varchar)
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
@@ -41,9 +41,8 @@ func GetVideosTable() (videosTable table.Table) {
 		return nil
 	})
 	formList.AddField("Poster", "poster", db.Text, form.File)
-	formList.AddField("VID", "vid", db.Varchar, form.Text).FieldNotAllowEdit().FieldHide()
-	formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
-	formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowEdit().FieldNotAllowAdd()
+	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldHide()
+
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
 }
