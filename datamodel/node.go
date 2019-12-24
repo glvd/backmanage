@@ -10,8 +10,8 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-// GetVideosTable ...
-func GetVideosTable() (videosTable table.Table) {
+// GetNodeTable ...
+func GetNodeTable() (videosTable table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"
