@@ -1,4 +1,4 @@
-package conversion
+package node
 
 import (
 	"context"
@@ -11,11 +11,11 @@ import (
 	"github.com/ipfs/interface-go-ipfs-core/path"
 )
 
-// NodeTypeCluster ...
+// TypeCluster ...
 const (
-	NodeTypeCluster = "cluster"
-	NodeTypeSingle  = "single"
-	NodeTypeDummy   = "dummy"
+	TypeCluster = "cluster"
+	TypeSingle  = "single"
+	TypeDummy   = "dummy"
 )
 
 // Node ...
@@ -69,7 +69,7 @@ func ResolvedHash(path path.Resolved) (string, error) {
 
 // Type ...
 func (d dummyNode) Type() string {
-	return NodeTypeDummy
+	return TypeDummy
 }
 
 // ID ...
@@ -115,7 +115,7 @@ func (d dummyNode) PinCheck(ctx context.Context, hash ...string) (int, error) {
 
 // RegisterNode ...
 func RegisterNode(node Node) {
-	if node != nil && globalNode.Type() == NodeTypeDummy {
+	if node != nil && globalNode.Type() == TypeDummy {
 		log.Infow("node registerd", "type", node.Type())
 		globalNode = node
 	}

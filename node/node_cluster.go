@@ -1,4 +1,4 @@
-package conversion
+package node
 
 import (
 	"context"
@@ -40,15 +40,16 @@ type clusterNode struct {
 }
 
 // NewClusterNode ...
-func NewClusterNode(addr string) Node {
-	node := &clusterNode{
+func NewClusterNode(addr string) (node Node, e error) {
+	n := &clusterNode{
 		addr:     addr,
 		addParam: api.DefaultAddParams(),
 	}
-	if err := node.connect(); err != nil {
-		panic(err)
+	if e := n.connect(); e != nil {
+		return
 	}
-	return node
+	node = n
+	return
 }
 
 func (c *clusterNode) params() api.AddParams {
@@ -57,7 +58,7 @@ func (c *clusterNode) params() api.AddParams {
 
 // Type ...
 func (c *clusterNode) Type() string {
-	return NodeTypeCluster
+	return TypeCluster
 
 }
 

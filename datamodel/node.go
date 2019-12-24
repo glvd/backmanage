@@ -1,6 +1,7 @@
 package datamodel
 
 import (
+	"github.com/glvd/backmanage/node"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
@@ -27,7 +28,18 @@ func GetNodeTable() (videosTable table.Table) {
 	//edit/add form
 	formList := videosTable.GetForm()
 	formList.SetBeforeInsert(func(values form2.Values) error {
-
+		addr := "/ip4/127.0.0.1/tcp/5001"
+		if addr2 := values.Get("node_addr"); addr2 != "" {
+			addr = addr2
+		}
+		n, e := node.NewSingleNode(addr)
+		node.AddNode(addr, n)
+		values.Add("node_id", n.ID().ID)
+		if e != nil {
+			values.Add("node_status", "0")
+		} else {
+			values.Add("node_status", "1")
+		}
 		return nil
 	})
 

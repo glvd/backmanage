@@ -1,4 +1,4 @@
-package conversion
+package node
 
 import (
 	"context"
@@ -23,7 +23,7 @@ type singleNode struct {
 
 // Type ...
 func (n *singleNode) Type() string {
-	return NodeTypeSingle
+	return TypeSingle
 }
 
 // ID ...
@@ -53,12 +53,13 @@ func (n *singleNode) connect() (e error) {
 }
 
 // NewSingleNode ...
-func NewSingleNode(addr string) Node {
-	node := &singleNode{addr: addr}
-	if err := node.connect(); err != nil {
-		panic(err)
+func NewSingleNode(addr string) (node Node, e error) {
+	n := &singleNode{addr: addr}
+	if e := n.connect(); e != nil {
+		return
 	}
-	return node
+	node = n
+	return
 }
 
 // AddFile ...
