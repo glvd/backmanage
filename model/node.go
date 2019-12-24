@@ -191,5 +191,5 @@ type Node struct {
 	Type       string
 	NodeID     string
 	NodeAddr   string
-	NodeConfig string
+	ConfigPath string
 }
