@@ -55,7 +55,7 @@ func (n *singleNode) connect() (e error) {
 // NewSingleNode ...
 func NewSingleNode(addr string) (node Node, e error) {
 	n := &singleNode{addr: addr}
-	if e := n.connect(); e != nil {
+	if e = n.connect(); e != nil {
 		return
 	}
 	node = n

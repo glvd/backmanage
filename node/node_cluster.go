@@ -45,7 +45,7 @@ func NewClusterNode(addr string) (node Node, e error) {
 		addr:     addr,
 		addParam: api.DefaultAddParams(),
 	}
-	if e := n.connect(); e != nil {
+	if e = n.connect(); e != nil {
 		return
 	}
 	node = n

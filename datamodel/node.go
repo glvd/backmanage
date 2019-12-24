@@ -33,13 +33,13 @@ func GetNodeTable() (videosTable table.Table) {
 			addr = addr2
 		}
 		n, e := node.NewSingleNode(addr)
-		node.AddNode(addr, n)
-		values.Add("node_id", n.ID().ID)
 		if e != nil {
 			values.Add("node_status", "0")
-		} else {
-			values.Add("node_status", "1")
+			return nil
 		}
+		node.AddNode(addr, n)
+		values.Add("node_status", "1")
+		values.Add("node_id", n.ID().ID)
 		return nil
 	})
 
