@@ -41,7 +41,7 @@ func GetVideosTable() (videosTable table.Table) {
 		return nil
 	})
 	formList.AddField("Poster", "poster", db.Text, form.File)
-	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldHide()
+	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text)
 
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
