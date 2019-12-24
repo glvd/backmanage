@@ -1,13 +1,12 @@
 package datamodel
 
 import (
-	"fmt"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
-	uuid "github.com/satori/go.uuid"
+	"github.com/goextension/log"
 )
 
 // GetVideosTable ...
@@ -33,14 +32,15 @@ func GetVideosTable() (videosTable table.Table) {
 
 	//edit/add form
 	formList := videosTable.GetForm()
-	formList.SetBeforeInsert(func(values form2.Values) error {
-		fmt.Println("hook", values.Get("vid"), values.IsEmpty("vid"))
-		if values.IsEmpty("vid") {
-			values.Add("vid", uuid.NewV1().String())
+	formList.SetBeforeUpdate(func(values form2.Values) error {
+		log.Infow("update", "poster", values.Get("poster"))
+		if poster := values.Get("poster"); poster == "" {
+			values.Delete("poster")
 		}
 		return nil
 	})
-	formList.AddField("Poster", "poster", db.Text, form.File)
+	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowAdd().FieldNotAllowEdit()
+	formList.AddField("Poster", "poster", db.Text, form.Text)
 	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text)
 
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
