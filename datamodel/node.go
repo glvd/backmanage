@@ -27,22 +27,8 @@ func GetNodeTable() (videosTable table.Table) {
 
 	//edit/add form
 	formList := videosTable.GetForm()
-	formList.SetBeforeInsert(func(values form2.Values) error {
-		addr := "/ip4/127.0.0.1/tcp/5001"
-		if addr2 := values.Get("node_addr"); addr2 != "" {
-			addr = addr2
-		}
-		n, e := node.NewSingleNode(addr)
-		if e != nil {
-			values.Add("node_status", "0")
-			return nil
-		}
-		node.AddNode(addr, n)
-		values.Add("node_status", "1")
-		values.Add("node_id", n.ID().ID)
-		return nil
-	})
-
+	formList.SetBeforeInsert(NodeInfo)
+	formList.SetBeforeUpdate(NodeInfo)
 	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text)
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
@@ -51,4 +37,22 @@ func GetNodeTable() (videosTable table.Table) {
 	formList.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
 
 	return
+}
+
+// NodeInfo ...
+func NodeInfo(values form2.Values) error {
+	addr := "/ip4/127.0.0.1/tcp/5001"
+	if addr2 := values.Get("node_addr"); addr2 != "" {
+		addr = addr2
+	}
+	values.Add("node_addr", addr)
+	n, e := node.NewSingleNode(addr)
+	if e != nil {
+		values.Add("node_status", "0")
+		return nil
+	}
+	node.AddNode(addr, n)
+	values.Add("node_status", "1")
+	values.Add("node_id", n.ID().ID)
+	return nil
 }
