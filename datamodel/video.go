@@ -6,15 +6,15 @@ import (
 	"github.com/glvd/go-admin/template/types"
 )
 
-// GetVideosTable ...
-func GetVideosTable() (videosTable table.Table) {
+// VideoTable ...
+func VideoTable() (videoTable table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"
 	cfg.Editable = false
 	cfg.CanAdd = false
 	cfg.Deletable = false
-	videosTable = table.NewDefaultTable(table.Config{
+	videoTable = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     false,
 		Editable:   false,
@@ -26,7 +26,7 @@ func GetVideosTable() (videosTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := videosTable.GetInfo()
+	info := videoTable.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("Poster", "poster", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "" {
@@ -42,7 +42,7 @@ func GetVideosTable() (videosTable table.Table) {
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 
 	//edit/add form
-	formList := videosTable.GetForm()
+	formList := videoTable.GetForm()
 	//formList.SetBeforeUpdate(func(values form2.Values) error {
 	//	log.Infow("update", "poster", values.Get("poster"))
 	//	if poster := values.Get("poster"); poster == "" {

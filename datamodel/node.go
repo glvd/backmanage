@@ -9,14 +9,14 @@ import (
 	"github.com/glvd/go-admin/template/types/form"
 )
 
-// GetNodesTable ...
-func GetNodesTable() (videosTable table.Table) {
+// GetNodeTable ...
+func GetNodeTable() (nodeTable table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"
 
-	videosTable = table.NewDefaultTable(cfg)
-	info := videosTable.GetInfo()
+	nodeTable = table.NewDefaultTable(cfg)
+	info := nodeTable.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("NodeID", "node_id", db.Varchar)
 	info.AddField("NodeAddr", "node_addr", db.Text)
@@ -35,7 +35,7 @@ func GetNodesTable() (videosTable table.Table) {
 	info.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
 
 	//edit/add form
-	formList := videosTable.GetForm()
+	formList := nodeTable.GetForm()
 	formList.SetBeforeInsert(NodeInfo)
 	formList.SetBeforeUpdate(NodeInfo)
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowAdd().FieldNotAllowEdit()

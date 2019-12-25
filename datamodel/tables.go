@@ -9,6 +9,7 @@ import "github.com/glvd/go-admin/plugins/admin/modules/table"
 //
 // http://{{config.Domain}}:{{Port}}/{{config.Prefix}}/info/{{key}}
 var Generators = map[string]table.Generator{
-	"nodes":  GetNodesTable,
-	"videos": GetVideosTable,
+	"nodes":  GetNodeTable,
+	"videos": VideoTable,
+	"infos":  InfoTable,
 }
