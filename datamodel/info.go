@@ -1,12 +1,15 @@
 package datamodel
 
 import (
+	"github.com/glvd/backmanage/data"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	"github.com/goextension/log"
+	"os"
+	"path/filepath"
 )
 
 // InfoTable ...
@@ -30,13 +33,27 @@ func InfoTable() (videoInfo table.Table) {
 		},
 	})
 	info := videoInfo.GetInfo()
-	info.AddField("ID", "id", db.Int).FieldSortable()
-	info.AddField("Poster", "no", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
-		if value.Value == "" {
+	info.AddField("ID", "uuid", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
+		return value.Row["id"]
+	}).FieldSortable()
+	info.AddField("Poster", "poster", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
+		log.Infof("field:%+v", value.Row)
+		path := ""
+		if v, b := value.Row["no"]; b {
+			if vv, b := v.(string); b {
+				path = vv
+			}
+		}
+		if path == "" {
 			return ""
 		}
 
-		return "<img src=\"/uploads/" + value.Value + "\"/>"
+		getwd, err := os.Getwd()
+		if err != nil {
+			return ""
+		}
+		path = filepath.Join(getwd, "data", "info", path, "image.jpg")
+		return "<img height=\"80\" src=\"data:image/jpg;base64," + data.ImageLoad(path) + "\"/>"
 	})
 	//No           string    `gorm:"no" json:"no"`                         //编号
 	//Intro        string    `gorm:"varchar(2048)" json:"intro"`           //简介
@@ -61,14 +78,16 @@ func InfoTable() (videoInfo table.Table) {
 	//Caption      string    `gorm:"caption" json:"caption"`               //字幕
 	//Group        string    `gorm:"group" json:"-"`                       //分组
 	//Index        string    `gorm:"index" json:"-"`                       //索引
-	//Date         string    `gorm:"'date'" json:"date"`                   //发行日期
+	//Date         string    `gorm:"'data'" json:"data"`                   //发行日期
 	//Sharpness    string    `gorm:"sharpness" json:"sharpness"`           //清晰度
 	//Series       string    `gorm:"series" json:"series"`                 //系列
 	//Tags         []*Tag    `gorm:"many2many:video_tags" json:"tags"`     //标签
 	//Length       string    `gorm:"length" json:"length"`                 //时长
 	//Sample       []*Sample `gorm:"foreignkey:id" json:"sample"`          //样板图
 	//Uncensored   bool      `gorm:"uncensored" json:"uncensored"`         //有码,无码
-	info.AddField("VideoNo", "no", db.Varchar).FieldEditAble().FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
+	info.AddField("VideoNo", "no", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
+		return value.Value
+	}).FieldEditAble().FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Intro", "intro", db.Varchar).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)

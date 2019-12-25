@@ -51,7 +51,7 @@ type Video struct {
 	Caption      string    `gorm:"caption" json:"caption"`               //字幕
 	Group        string    `gorm:"group" json:"-"`                       //分组
 	Index        string    `gorm:"index" json:"-"`                       //索引
-	Date         string    `gorm:"'date'" json:"date"`                   //发行日期
+	Date         string    `gorm:"'data'" json:"data"`                   //发行日期
 	Sharpness    string    `gorm:"sharpness" json:"sharpness"`           //清晰度
 	Series       string    `gorm:"series" json:"series"`                 //系列
 	Tags         []*Tag    `gorm:"many2many:video_tags" json:"tags"`     //标签

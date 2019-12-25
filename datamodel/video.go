@@ -1,9 +1,12 @@
 package datamodel
 
 import (
+	"github.com/glvd/backmanage/data"
 	"github.com/glvd/go-admin/modules/db"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
+	"os"
+	"path/filepath"
 )
 
 // VideoTable ...
@@ -32,8 +35,12 @@ func VideoTable() (videoTable table.Table) {
 		if value.Value == "" {
 			return ""
 		}
-
-		return "<img src=\"/uploads/" + value.Value + "\"/>"
+		getwd, err := os.Getwd()
+		if err != nil {
+			return ""
+		}
+		path := filepath.Join(getwd, "data", "info", value.Value, "image.jpg")
+		return "<img src=\"" + data.ImageLoad(path) + "\"/>"
 	})
 
 	info.AddField("VideoNo", "video_no", db.Varchar).FieldEditAble().FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})

@@ -1,14 +1,16 @@
-package date
+package data
 
 import (
 	"bufio"
 	"encoding/base64"
+	"github.com/goextension/log"
 	"io/ioutil"
 	"os"
 )
 
 // ImageLoad ...
 func ImageLoad(path string) string {
+	log.Infow("image_load", "path", path)
 	open, err := os.Open(path)
 	if err != nil {
 		return ""

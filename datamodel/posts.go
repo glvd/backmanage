@@ -17,7 +17,7 @@ func GetPostsTable() (postsTable table.Table) {
 	info.AddField("Title", "title", db.Varchar)
 	info.AddField("Description", "description", db.Varchar)
 	info.AddField("Content", "content", db.Varchar).FieldEditAble(editType.Textarea)
-	info.AddField("Date", "date", db.Varchar)
+	info.AddField("Date", "data", db.Varchar)
 
 	info.SetTable("posts").SetTitle("Posts").SetDescription("Posts")
 
@@ -26,7 +26,7 @@ func GetPostsTable() (postsTable table.Table) {
 	formList.AddField("Title", "title", db.Varchar, form.Text)
 	formList.AddField("Description", "description", db.Varchar, form.Text)
 	formList.AddField("Content", "content", db.Varchar, form.Text)
-	formList.AddField("Date", "date", db.Varchar, form.Datetime)
+	formList.AddField("Date", "data", db.Varchar, form.Datetime)
 
 	formList.SetTable("posts").SetTitle("Posts").SetDescription("Posts")
 
