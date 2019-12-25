@@ -9,8 +9,8 @@ import (
 	"github.com/glvd/go-admin/template/types/form"
 )
 
-// GetNodeTable ...
-func GetNodeTable() (videosTable table.Table) {
+// GetNodesTable ...
+func GetNodesTable() (videosTable table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"

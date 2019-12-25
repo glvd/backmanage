@@ -1,22 +1,29 @@
 package pages
 
 import (
+	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/modules/config"
 	template2 "github.com/glvd/go-admin/template"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/themes/adminlte/components/infobox"
 	"html/template"
+	"strconv"
 )
 
+// GetVideoContent ...
 func GetVideoContent() (types.Panel, error) {
 
 	components := template2.Get(config.Get().Theme)
 	colComp := components.Col()
 
+	v := &model.Video{}
+
+	count := template.HTML(strconv.Itoa(v.Count()))
+
 	infobox1 := infobox.New().
 		SetText("在线视频数量").
 		SetColor("#3583af").
-		SetNumber("100").
+		SetNumber(count).
 		SetIcon(`<svg t="1568904058859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2216" width="48" height="48"><path d="M864 64l-704 0C142.336 64 128 78.336 128 96l0 832C128 945.664 142.336 960 160 960l704 0c17.664 0 32-14.336 32-32l0-832C896 78.336 881.664 64 864 64zM832 896 192 896 192 128l640 0L832 896z" fill="#e6e6e6" p-id="2217"></path><path d="M353.92 320c17.6 0 32-14.336 32-32S371.584 256 353.92 256L353.28 256C335.616 256 321.6 270.336 321.6 288S336.256 320 353.92 320z" fill="#e6e6e6" p-id="2218"></path><path d="M353.92 512c17.6 0 32-14.336 32-32S371.584 448 353.92 448L353.28 448C335.616 448 321.6 462.336 321.6 480S336.256 512 353.92 512z" fill="#e6e6e6" p-id="2219"></path><path d="M353.92 704c17.6 0 32-14.336 32-32S371.584 640 353.92 640L353.28 640c-17.6 0-31.616 14.336-31.616 32S336.256 704 353.92 704z" fill="#e6e6e6" p-id="2220"></path><path d="M480 320l192 0C689.664 320 704 305.664 704 288S689.664 256 672 256l-192 0C462.336 256 448 270.336 448 288S462.336 320 480 320z" fill="#e6e6e6" p-id="2221"></path><path d="M480 512l192 0C689.664 512 704 497.664 704 480S689.664 448 672 448l-192 0C462.336 448 448 462.336 448 480S462.336 512 480 512z" fill="#e6e6e6" p-id="2222"></path><path d="M480 704l192 0c17.664 0 32-14.336 32-32S689.664 640 672 640l-192 0C462.336 640 448 654.336 448 672S462.336 704 480 704z" fill="#e6e6e6" p-id="2223"></path></svg>`).
 		GetContent()
 
@@ -30,7 +37,7 @@ func GetVideoContent() (types.Panel, error) {
 	infobox3 := infobox.New().
 		SetText("总视频量").
 		SetColor("#d8cd68").
-		SetNumber("760").
+		SetNumber(count).
 		SetIcon(`<svg t="1570469111431" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3801" width="48" height="48"><path d="M298.666667 128v768h426.666666V128H298.666667zM256 85.333333h512v853.333334H256V85.333333zM170.666667 128H85.333333V85.333333h128v853.333334H85.333333v-42.666667h85.333334V128z m768 768v42.666667h-128V85.333333h128v42.666667h-85.333334v768h85.333334z" p-id="3802" fill="#ffffff"></path></svg>`).
 		GetContent()
 
@@ -84,6 +91,7 @@ func GetVideoContent() (types.Panel, error) {
 		GetContent()
 
 	tableCol := colComp.SetSize(map[string]string{"md": "12"}).SetContent(row1 + boxInfo).GetContent()
+
 	row5 := components.Row().SetContent(tableCol).GetContent()
 	return types.Panel{
 		Content:     row5,

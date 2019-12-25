@@ -3,8 +3,10 @@ package main
 import (
 	_ "github.com/glvd/backmanage/adapter/gin"
 	"github.com/glvd/backmanage/datamodel"
+	"github.com/glvd/backmanage/echarts"
 	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/plugins/admin"
+	"github.com/glvd/go-admin/template/chartjs"
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"
 	_ "github.com/go-sql-driver/mysql"
@@ -35,8 +37,8 @@ func main() {
 	//adminPlugin.AddGenerator("user", datamodel.GetUserTable)
 
 	template.AddLoginComp(login.GetLoginComponent())
-	//template.AddComp(chartjs.NewChart())
-	//template.AddComp(echarts.NewChart())
+	template.AddComp(chartjs.NewChart())
+	template.AddComp(echarts.NewChart())
 
 	//rootPath := "/data/www/go-admin"
 	rootPath := "."
@@ -67,27 +69,27 @@ func main() {
 		})
 	})
 
-	//r.GET("/admin/dash", func(ctx *gin.Context) {
-	//	//	eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
-	//	//		return pages.GetDashBoardContent()
-	//	//	})
-	//	//})
-	r.GET("/admin/video", func(ctx *gin.Context) {
+	r.GET("/admin/dash", func(ctx *gin.Context) {
+		eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
+			return pages.GetDashBoardContent()
+		})
+	})
+	r.GET("/pages/video", func(ctx *gin.Context) {
 		eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
 			return pages.GetVideoContent()
 		})
 	})
-	//r.GET("/admin/form1", func(ctx *gin.Context) {
-	//	eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
-	//		return pages.GetForm1Content()
-	//	})
-	//})
-	//
-	//r.GET("/admin/echarts", func(ctx *gin.Context) {
-	//	eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
-	//		return pages.GetDashBoard3Content()
-	//	})
-	//})
+	r.GET("/admin/form1", func(ctx *gin.Context) {
+		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
+			return pages.GetForm1Content()
+		})
+	})
+
+	r.GET("/admin/echarts", func(ctx *gin.Context) {
+		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
+			return pages.GetDashBoard3Content()
+		})
+	})
 
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.Redirect(http.StatusMovedPermanently, "/admin")

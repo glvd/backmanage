@@ -5,6 +5,7 @@ import "sync"
 // Nodes ...
 type Nodes struct {
 	v sync.Map
+	s sync.Map
 }
 
 var nodes Nodes
@@ -40,4 +41,9 @@ func (n *Nodes) Add(name string, node Node) {
 // Del ...
 func (n *Nodes) Del(name string) {
 	n.v.Delete(name)
+}
+
+// Status ...
+func (n *Nodes) Status(name string) {
+
 }

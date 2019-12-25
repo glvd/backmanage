@@ -64,6 +64,15 @@ func init() {
 	RegisterTable(Video{}, Sample{}, Tag{}, Role{}, Alias{})
 }
 
+// Count ...
+func (v *Video) Count() (count int) {
+	db := DB().Model(&Video{}).Count(&count)
+	if db.Error != nil {
+		return -1
+	}
+	return
+}
+
 // InsertVideo ...
 func InsertVideo(video *Video) error {
 	db := DB().Create(video)
@@ -71,4 +80,17 @@ func InsertVideo(video *Video) error {
 		return db.Error
 	}
 	return nil
+}
+
+// GetVideos ...
+func GetVideos(limit int, offsets ...int) (v []*Video, e error) {
+	offset := -1
+	if len(offsets) != 0 {
+		offset = offsets[0]
+	}
+	db := DB().Limit(limit).Offset(offset).Find(&v)
+	if db.Error != nil {
+		return nil, db.Error
+	}
+	return
 }
