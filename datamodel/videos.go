@@ -35,7 +35,7 @@ func GetVideosTable() (videosTable table.Table) {
 		return "<img src=\"/uploads/" + value.Value + "\"/>"
 	})
 
-	info.AddField("VideoNo", "video_no", db.Varchar)
+	info.AddField("VideoNo", "video_no", db.Varchar).FieldEditAble().FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
