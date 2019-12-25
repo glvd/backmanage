@@ -1,5 +1,9 @@
 package model
 
+import (
+	"github.com/glvd/backmanage/data"
+)
+
 // Alias ...
 type Alias struct {
 	Model
@@ -71,6 +75,21 @@ func (v *Video) Count() (count int) {
 		return -1
 	}
 	return
+}
+
+// CopyInfo ...
+func (v *Video) CopyInfo(content *data.Content) error {
+	v.No = content.ID
+	v.Intro = content.Title
+	v.Uncensored = content.Uncensored
+	v.Date = content.ReleaseDate.String()
+	for _, genre := range content.Genres {
+		v.Tags = append(v.Tags, &Tag{
+			Name: genre.Content,
+		})
+	}
+	v.PosterHash = ""
+	return nil
 }
 
 // InsertVideo ...

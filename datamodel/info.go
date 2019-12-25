@@ -8,7 +8,6 @@ import (
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	"github.com/goextension/log"
-	"os"
 	"path/filepath"
 )
 
@@ -48,12 +47,12 @@ func InfoTable() (videoInfo table.Table) {
 			return ""
 		}
 
-		getwd, err := os.Getwd()
-		if err != nil {
-			return ""
+		path = filepath.Join("data", "info", path, "image.jpg")
+		img := data.ImageLoad(path)
+		if img != "" {
+			img = "data:image/jpg;base64," + img
 		}
-		path = filepath.Join(getwd, "data", "info", path, "image.jpg")
-		return "<img height=\"80\" src=\"data:image/jpg;base64," + data.ImageLoad(path) + "\"/>"
+		return "<img height=\"80px\" src=\"" + img + "\"/>"
 	})
 	//No           string    `gorm:"no" json:"no"`                         //编号
 	//Intro        string    `gorm:"varchar(2048)" json:"intro"`           //简介
