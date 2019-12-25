@@ -32,6 +32,7 @@ func VideoTable() (videoTable table.Table) {
 		if value.Value == "" {
 			return ""
 		}
+
 		return "<img src=\"/uploads/" + value.Value + "\"/>"
 	})
 

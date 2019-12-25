@@ -114,6 +114,8 @@ github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0 h1:Jpk/8MjmgWkabf
 github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0/go.mod h1:nc/ZA5rETHQWGuLabvuiNvtbWSxieV7FJ712akX2Zzo=
 github.com/glvd/go-admin v1.1.10 h1:kVWXJt2ppe1s4OvDTB+QmzKJr8IhFPGKKmZWSp6botg=
 github.com/glvd/go-admin v1.1.10/go.mod h1:VT50giPRQXaxumcXdW8sK3t4CKqAzBwANBv2KKOGtlo=
+github.com/glvd/go-admin v1.1.15 h1:GYru6Xri4qbq1ahzfblesRUxchDhfoYdIM/O95q2Qig=
+github.com/glvd/go-admin v1.1.15/go.mod h1:VT50giPRQXaxumcXdW8sK3t4CKqAzBwANBv2KKOGtlo=
 github.com/glvd/themes v0.0.15 h1:Gu71EQlwpjv+xRradMLhgtDib6jpBxtgkkYjYCiChqg=
 github.com/glvd/themes v0.0.15/go.mod h1:bNPVRTtymT7KvgGvputTZiUO1nYlTGZO3e9jVGhmu6g=
 github.com/glvd/themes v0.0.17 h1:1ZbUhAHl/cD6MZhiA+Q7cDuMMCA44/4Jp1DUYwo6iXU=
