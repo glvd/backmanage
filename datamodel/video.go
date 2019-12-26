@@ -97,6 +97,7 @@ func VideoTable() (videoTable table.Table) {
 	formList := videoTable.GetForm()
 	formList.SetInsertFn(func(values form2.Values) error {
 		log.Infow("file", "path", values.Get("file"))
+
 		return nil
 	})
 	//formList.SetBeforeUpdate(func(values form2.Values) error {
@@ -106,7 +107,7 @@ func VideoTable() (videoTable table.Table) {
 	//	}
 	//	return nil
 	//})
-	formList.AddField("File", "file", db.Varchar, form.File).FieldNotAllowEdit()
+	formList.AddField("番号", "banno", db.Varchar, form.Text).FieldNotAllowEdit()
 	//formList.AddField("Poster", "poster", db.Text, form.Text)
 	//formList.AddField("VideoNo", "video_no", db.Varchar, form.Text)
 	//

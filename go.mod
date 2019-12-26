@@ -12,11 +12,11 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gobuffalo/packr v1.30.1 // indirect
 	github.com/goextension/log v0.0.2
-	github.com/google/martian v2.1.0+incompatible
 	github.com/ipfs/go-cid v0.0.4
 	github.com/ipfs/go-ipfs-files v0.0.6
 	github.com/ipfs/go-ipfs-http-client v0.0.5
 	github.com/ipfs/interface-go-ipfs-core v0.2.5
+	github.com/javscrape/go-scrape v0.0.8
 	github.com/jinzhu/gorm v1.9.11
 	github.com/multiformats/go-multiaddr v0.1.1
 	github.com/satori/go.uuid v1.2.0
