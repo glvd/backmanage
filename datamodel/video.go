@@ -30,7 +30,7 @@ func VideoTable() (videoTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := videoTable.GetInfo()
+	info := videoTable.GetInfo().SetFilterFormLayout(form.LayoutTwoCol)
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		//path := ""
@@ -65,10 +65,10 @@ func VideoTable() (videoTable table.Table) {
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 
-	videoTable.GetForm().SetTabGroups(types.
-		NewTabGroups("video_no", "intro", "created_at").
-		AddGroup("source_path", "tags", "actors")).
-		SetTabHeaders("profile1", "profile2")
+	//videoTable.GetInfo().SetTabGroups(types.
+	//	NewTabGroups("video_no", "intro", "created_at").
+	//	AddGroup("source_path", "tags", "actors")).
+	//	SetTabHeaders("profile1", "profile2")
 	//edit/add form
 	formList := videoTable.GetForm()
 	formList.SetBeforeInsert(VideoInsert)
