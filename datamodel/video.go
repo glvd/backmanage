@@ -33,17 +33,10 @@ func VideoTable() (videoTable table.Table) {
 	info := videoTable.GetInfo().SetFilterFormLayout(form.LayoutTwoCol)
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
-		//path := ""
-		//if v, b := value.Row["no"]; b {
-		//	if vv, b := v.(string); b {
-		//		path = vv
-		//	}
-		//}
 		if value.Value == "" {
 			return ""
 		}
 
-		//path = filepath.Join("data", "info", path, "image.jpg")
 		img := data.ImageLoad(value.Value)
 		if img != "" {
 			img = "data:image/jpg;base64," + img
