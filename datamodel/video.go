@@ -46,7 +46,7 @@ func VideoTable() (videoTable table.Table) {
 		if img != "" {
 			img = "data:image/jpg;base64," + img
 		}
-		return "<img height=\"80px\" src=\"" + img + "\"/>"
+		return "<img height=\"120px\" src=\"" + img + "\"/>"
 	})
 
 	info.AddField("VideoID", "video_id", db.Varchar)
@@ -77,7 +77,7 @@ func VideoTable() (videoTable table.Table) {
 	//edit/add form
 	formList := videoTable.GetForm()
 	formList.SetBeforeInsert(func(values form2.Values) error {
-		no := strings.ToUpper(values.Get("video_no"))
+		no := strings.ToUpper(strings.TrimSpace(values.Get("video_no")))
 		if no != "" {
 			values.Add("video_no", no)
 			c, err := scrape.FindContent(no)

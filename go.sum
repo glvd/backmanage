@@ -379,6 +379,8 @@ github.com/jackpal/go-nat-pmp v1.0.1 h1:i0LektDkO1QlrTm/cSuP+PyBCDnYvjPLGl4LdWEM
 github.com/jackpal/go-nat-pmp v1.0.1/go.mod h1:QPH045xvCAeXUZOxsnwmrtiCoxIr9eob+4orBN1SBKc=
 github.com/javscrape/go-scrape v0.0.8 h1:e61EuilrMzHK/xyWEGPSPibdvC9qEzkL23T/1rkIQ28=
 github.com/javscrape/go-scrape v0.0.8/go.mod h1:FWy+t9QDIUAoisooZMCQGP7wXG1IaOSR+/fPosM/j18=
+github.com/javscrape/go-scrape v0.0.9 h1:7rr+Y4yW/4beBri9Oe2Rw+LlXV1lx8SWcwui1aeRr+0=
+github.com/javscrape/go-scrape v0.0.9/go.mod h1:FWy+t9QDIUAoisooZMCQGP7wXG1IaOSR+/fPosM/j18=
 github.com/jbenet/go-cienv v0.0.0-20150120210510-1bb1476777ec/go.mod h1:rGaEvXB4uRSZMmzKNLoXvTu1sfx+1kv/DojUlPrSZGs=
 github.com/jbenet/go-cienv v0.1.0 h1:Vc/s0QbQtoxX8MwwSLWWh+xNNZvM3Lw7NsTcHrvvhMc=
 github.com/jbenet/go-cienv v0.1.0/go.mod h1:TqNnHUmJgXau0nCzC7kXWeotg3J9W34CUv5Djy1+FlA=
