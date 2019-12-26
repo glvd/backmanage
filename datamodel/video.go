@@ -10,6 +10,8 @@ import (
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
+	"github.com/goextension/log"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -79,6 +81,10 @@ func VideoTable() (videoTable table.Table) {
 	formList.SetBeforeInsert(func(values form2.Values) error {
 		no := strings.ToUpper(strings.TrimSpace(values.Get("video_no")))
 		if no != "" {
+			err := os.RemoveAll(filepath.Join("data", "info", no))
+			if err != nil {
+				log.Error("remove", err)
+			}
 			values.Add("video_no", no)
 			c, err := scrape.FindContent(no)
 			if err != nil {
