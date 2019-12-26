@@ -65,18 +65,15 @@ func VideoTable() (videoTable table.Table) {
 	//edit/add form
 	formList := videoTable.GetForm()
 	formList.SetBeforeInsert(VideoInsert)
-	//formList.SetBeforeUpdate(func(values form2.Values) error {
-	//	log.Infow("update", "poster", values.Get("poster"))
-	//	if poster := values.Get("poster"); poster == "" {
-	//		values.Delete("poster")
-	//	}
-	//	return nil
-	//})
+
 	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldNotAllowEdit()
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 	formList.AddField("SourcePath", "source_path", db.Varchar, form.Text)
-
+	videoTable.GetForm().SetTabGroups(types.
+		NewTabGroups("video_no", "intro", "created_at").
+		AddGroup("source_path", "tags", "actors")).
+		SetTabHeaders("profile1", "profile2")
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
 }
