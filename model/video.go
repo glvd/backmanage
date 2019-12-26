@@ -36,13 +36,9 @@ type Video struct {
 	Intro        string    `gorm:"varchar(2048)" json:"intro"`            //简介
 	Alias        []*Alias  `gorm:"many2many:video_aliases" json:"alias"`  //别名，片名
 	ThumbHash    string    `gorm:"column:thumb_hash" json:"thumb_hash"`   //缩略图
-	ThumbPath    string    `gorm:"column:thumb_path" json:"-"`            //路径
 	PosterHash   string    `gorm:"column:poster_hash" json:"poster_hash"` //海报地址
-	PosterPath   string    `gorm:"column:poster_path" json:"-"`           //路径
 	SourceHash   string    `gorm:"column:source_hash" json:"source_hash"` //原片地址
-	SourcePath   string    `gorm:"column:source_path" json:"-"`           //路径
 	M3U8Hash     string    `gorm:"column:m3u8_hash" json:"m3u8_hash"`     //切片地址
-	M3u8Path     string    `gorm:"column:m3u8_path" json:"-"`             //路径
 	Key          string    `gorm:"key"  json:"-"`                         //秘钥
 	M3U8         string    `gorm:"column:m3u8" json:"-"`                  //M3U8名
 	Roles        []*Role   `gorm:"many2many:video_roles" json:"role"`     //主演
@@ -85,13 +81,27 @@ func (v *Video) Count() (count int) {
 func (v *Video) CopyInfo(content *data.Content) error {
 	v.No = content.ID
 	v.Intro = content.Title
-	v.Uncensored = content.Uncensored
-	v.Date = content.ReleaseDate.String()
 	for _, genre := range content.Genres {
 		v.Tags = append(v.Tags, &Tag{
 			Name: genre.Content,
 		})
 	}
+	for _, act := range content.Actors {
+		v.Roles = append(v.Roles, &Role{
+			Model: Model{},
+			Name:  act.Name,
+		})
+	}
+
+	v.Season = MustString("", "1")
+	v.TotalEpisode = MustString("", "1")
+	v.Episode = MustString("", "1")
+	v.Producer = content.Studio
+	v.Format = MustString("", "2D")
+	v.Date = content.ReleaseDate.String()
+	v.Series = content.MovieSet
+	v.Uncensored = content.Uncensored
+
 	return nil
 }
 

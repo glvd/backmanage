@@ -86,3 +86,11 @@ func (m *Model) BeforeCreate(scope *gorm.Scope) error {
 	}
 	return nil
 }
+
+// MustString ...
+func MustString(v string, d string) string {
+	if v == "" {
+		return d
+	}
+	return v
+}
