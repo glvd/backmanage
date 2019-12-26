@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/glvd/backmanage/data"
+	"strings"
 )
 
 // Alias ...
@@ -103,6 +104,24 @@ func (v *Video) CopyInfo(content *data.Content) error {
 	v.Uncensored = content.Uncensored
 
 	return nil
+}
+
+// RoleString ...
+func (v *Video) RoleString() (s string) {
+	var roles []string
+	for _, role := range v.Roles {
+		roles = append(roles, role.Name)
+	}
+	return strings.Join(roles, ",")
+}
+
+// TagString ...
+func (v *Video) TagString() (s string) {
+	var tags []string
+	for _, tag := range v.Tags {
+		tags = append(tags, tag.Name)
+	}
+	return strings.Join(tags, ",")
 }
 
 // InsertVideo ...
