@@ -11,5 +11,5 @@ import "github.com/glvd/go-admin/plugins/admin/modules/table"
 var Generators = map[string]table.Generator{
 	"nodes":  GetNodeTable,
 	"videos": VideoTable,
-	"infos":  InfoTable,
+	"infos":  VideoTable,
 }
