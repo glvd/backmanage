@@ -52,24 +52,13 @@ func VideoTable() (videoTable table.Table) {
 	})
 
 	info.AddField("VideoID", "video_id", db.Varchar)
-	info.AddField("VideoNo", "video_no", db.Varchar).FieldSortable().FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("Intro", "intro", db.Varchar).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("Actors", "actors", db.Varchar).FieldSortable().FieldDisplay(func(value types.FieldModel) interface{} {
-		ss := strings.Split(value.Value, ",")
-		var rlt []string
-
-		for _, s := range ss {
-			rlt = append(rlt, "<a href=\"#\">"+s+"</a>")
-		}
-		return strings.Join(rlt, ",")
+	info.AddField("VideoNo", "video_no", db.Varchar).FieldWidth(120).FieldSortable().FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
+	info.AddField("Intro", "intro", db.Varchar).FieldWidth(640).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
+	info.AddField("Actors", "actors", db.Varchar).FieldWidth(120).FieldSortable().FieldDisplay(func(value types.FieldModel) interface{} {
+		return SplitArguments(value)
 	}).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("Tags", "tags", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
-		ss := strings.Split(value.Value, ",")
-		var rlt []string
-		for _, s := range ss {
-			rlt = append(rlt, "<a href=\"#\">"+s+"</a>")
-		}
-		return strings.Join(rlt, ",")
+	info.AddField("Tags", "tags", db.Varchar).FieldWidth(180).FieldDisplay(func(value types.FieldModel) interface{} {
+		return SplitArguments(value)
 	}).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Source", "source_path", db.Varchar).FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
@@ -78,38 +67,7 @@ func VideoTable() (videoTable table.Table) {
 
 	//edit/add form
 	formList := videoTable.GetForm()
-	formList.SetBeforeInsert(func(values form2.Values) error {
-		no := strings.ToUpper(strings.TrimSpace(values.Get("video_no")))
-		if no != "" {
-			err := os.RemoveAll(filepath.Join("data", "info", no))
-			if err != nil {
-				log.Error("remove", err)
-			}
-			values.Add("video_no", no)
-			c, err := scrape.FindContent(no)
-			if err != nil {
-				return err
-			}
-			var v model.Video
-			err = v.CopyInfo(c)
-			if err != nil {
-				return err
-			}
-
-			err = model.InsertVideo(&v)
-			if err != nil {
-				return err
-			}
-			values.Add("poster_path", filepath.Join("data", "info", v.No, "image.jpg"))
-			values.Add("thumb_path", filepath.Join("data", "info", v.No, "thumb.jpg"))
-			values.Add("info_path", filepath.Join("data", "info", v.No, ".info"))
-			values.Add("video_id", v.ID)
-			values.Add("intro", v.Intro)
-			values.Add("actors", v.RoleString())
-			values.Add("tags", v.TagString())
-		}
-		return nil
-	})
+	formList.SetBeforeInsert(VideoInsert)
 	//formList.SetBeforeUpdate(func(values form2.Values) error {
 	//	log.Infow("update", "poster", values.Get("poster"))
 	//	if poster := values.Get("poster"); poster == "" {
@@ -124,4 +82,48 @@ func VideoTable() (videoTable table.Table) {
 
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
+}
+
+// VideoInsert ...
+func VideoInsert(values form2.Values) error {
+	no := strings.ToUpper(strings.TrimSpace(values.Get("video_no")))
+	if no != "" {
+		err := os.RemoveAll(filepath.Join("data", "info", no))
+		if err != nil {
+			log.Error("remove", err)
+		}
+		values.Add("video_no", no)
+		c, err := scrape.FindContent(no)
+		if err != nil {
+			return err
+		}
+		var v model.Video
+		err = v.CopyInfo(c)
+		if err != nil {
+			return err
+		}
+
+		err = model.InsertVideo(&v)
+		if err != nil {
+			return err
+		}
+		values.Add("poster_path", filepath.Join("data", "info", v.No, "image.jpg"))
+		values.Add("thumb_path", filepath.Join("data", "info", v.No, "thumb.jpg"))
+		values.Add("info_path", filepath.Join("data", "info", v.No, ".info"))
+		values.Add("video_id", v.ID)
+		values.Add("intro", v.Intro)
+		values.Add("actors", v.RoleString())
+		values.Add("tags", v.TagString())
+	}
+	return nil
+}
+
+// SplitArguments ...
+func SplitArguments(value types.FieldModel) interface{} {
+	ss := strings.Split(value.Value, ",")
+	var rlt []string
+	for _, s := range ss {
+		rlt = append(rlt, "<a href=\"#\">"+s+"</a>")
+	}
+	return strings.Join(rlt, "<br>")
 }
