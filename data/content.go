@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"github.com/goextension/log"
 	"io/ioutil"
 	"time"
 )
@@ -58,5 +59,6 @@ func LoadContent(path string) (*Content, error) {
 	if err != nil {
 		return nil, err
 	}
+	log.Infof("content:%+v", content)
 	return &content, nil
 }

@@ -56,7 +56,7 @@ type Video struct {
 	Caption      string    `gorm:"caption" json:"caption"`                //字幕
 	Group        string    `gorm:"group" json:"-"`                        //分组
 	Index        string    `gorm:"index" json:"-"`                        //索引
-	Date         string    `gorm:"column:data" json:"data"`               //发行日期
+	Date         string    `gorm:"column:date" json:"date"`               //发行日期
 	Sharpness    string    `gorm:"sharpness" json:"sharpness"`            //清晰度
 	Series       string    `gorm:"series" json:"series"`                  //系列
 	Tags         []*Tag    `gorm:"many2many:video_tags" json:"tags"`      //标签
@@ -99,7 +99,7 @@ func (v *Video) CopyInfo(content *data.Content) error {
 	v.Episode = MustString("", "1")
 	v.Producer = content.Studio
 	v.Format = MustString("", "2D")
-	v.Date = content.ReleaseDate.String()
+	v.Date = content.ReleaseDate.Format("2006-01-02")
 	v.Series = content.MovieSet
 	v.Uncensored = content.Uncensored
 
