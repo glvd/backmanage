@@ -30,7 +30,7 @@ func VideoTable() (videoTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := videoTable.GetInfo().SetFilterFormLayout(form.LayoutTwoCol)
+	info := videoTable.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "" {
@@ -45,7 +45,7 @@ func VideoTable() (videoTable table.Table) {
 	})
 
 	info.AddField("VideoID", "video_id", db.Varchar)
-	info.AddField("VideoNo", "video_no", db.Varchar).FieldWidth(120).FieldSortable().FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
+	info.AddField("VideoNo", "video_no", db.Varchar).FieldWidth(120).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Intro", "intro", db.Varchar).FieldWidth(640).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Actors", "actors", db.Varchar).FieldWidth(120).FieldSortable().FieldDisplay(func(value types.FieldModel) interface{} {
 		return SplitArguments(value)

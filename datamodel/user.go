@@ -88,10 +88,10 @@ func GetUserTable() (userTable table.Table) {
 	formList.AddField("UpdatedAt", "updated_at", db.Timestamp, form.Default).FieldNotAllowAdd()
 	formList.AddField("CreatedAt", "created_at", db.Timestamp, form.Default).FieldNotAllowAdd()
 
-	userTable.GetForm().SetTabGroups(types.
-		NewTabGroups("id", "ip", "name", "gender", "city").
-		AddGroup("phone", "role", "created_at", "updated_at")).
-		SetTabHeaders("profile1", "profile2")
+	//userTable.GetForm().SetTabGroups(types.
+	//	NewTabGroups("id", "ip", "name", "gender", "city").
+	//	AddGroup("phone", "role", "created_at", "updated_at")).
+	//	SetTabHeaders("profile1", "profile2")
 
 	formList.SetTable("users").SetTitle("Users").SetDescription("Users")
 
