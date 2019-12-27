@@ -35,12 +35,12 @@ func GetNodeTable() (nodeTable table.Table) {
 	}) //.FieldFilterOptionExt(map[string]interface{}{"allowClear": true})
 	info.AddField("NodeStatus", "node_status", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "0" {
-			return "异常"
+			return "abnormal"
 		}
-		return "正常"
+		return "normal"
 	})
 	info.AddField("Interval", "interval", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
-		return value.Value + " 秒"
+		return value.Value + " sec"
 	})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
