@@ -32,7 +32,7 @@ func TestInsertVideo(t *testing.T) {
 				video: &Video{
 					No:    "1",
 					Intro: "",
-					Alias: []*Alias{{
+					Alias: []Alias{{
 						Name: "alias1",
 					}},
 					ThumbHash:    "",
@@ -60,7 +60,7 @@ func TestInsertVideo(t *testing.T) {
 					Series:       "",
 					Tags:         nil,
 					Length:       "",
-					Sample: []*Sample{
+					Sample: []Sample{
 						{
 							Index: "1",
 							Addr:  "SampleLink",
@@ -76,6 +76,31 @@ func TestInsertVideo(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := InsertVideo(tt.args.video); (err != nil) != tt.wantErr {
 				t.Errorf("InsertVideo() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestVideo_JSON ...
+func TestVideo_JSON(t *testing.T) {
+	type fields struct {
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		{},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var v Video
+			find := DB().Where("id = ?", "0f74afdb-286b-11ea-8520-00155d012d1c").Find(&v)
+			if got := find.Error; got != nil {
+				t.Errorf("Find() = %v, want %v", got, nil)
+			}
+			if got := v.JSON(); got != "" {
+				t.Errorf("JSON() = %v", got)
 			}
 		})
 	}
