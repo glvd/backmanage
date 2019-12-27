@@ -7,6 +7,7 @@ import (
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
+	editType "github.com/glvd/go-admin/template/types/table"
 )
 
 // GetNodeTable ...
@@ -20,6 +21,18 @@ func GetNodeTable() (nodeTable table.Table) {
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("NodeID", "node_id", db.Varchar)
 	info.AddField("NodeAddr", "node_addr", db.Text)
+	info.AddField("SyncData", "sync", db.Tinyint).FieldDisplay(func(value types.FieldModel) interface{} {
+		if value.Value == "0" {
+			return "async"
+		}
+		return "sync"
+	}).FieldEditAble(editType.Select).FieldEditOptions([]map[string]string{
+		{"value": "0", "text": "async"},
+		{"value": "1", "text": "sync"},
+	}).FieldFilterable(types.FilterType{FormType: form.SelectSingle}).FieldFilterOptions([]map[string]string{
+		{"value": "0", "field": "async"},
+		{"value": "1", "field": "sync"},
+	}) //.FieldFilterOptionExt(map[string]interface{}{"allowClear": true})
 	info.AddField("NodeStatus", "node_status", db.Int).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "0" {
 			return "异常"
@@ -31,7 +44,6 @@ func GetNodeTable() (nodeTable table.Table) {
 	})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
-
 	info.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
 
 	//edit/add form
@@ -42,11 +54,24 @@ func GetNodeTable() (nodeTable table.Table) {
 	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text)
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	//formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
-	formList.AddField("Interval", "interval", db.Int, form.Text)
+	formList.AddField("Interval", "interval", db.Int, form.Text).FieldDefault("3")
+	formList.AddField("SyncData", "sync", db.Tinyint, form.Radio).
+		FieldOptions([]map[string]string{
+			{
+				"field":    "sync",
+				"label":    "同步",
+				"value":    "1",
+				"selected": "checked",
+			}, {
+				"field":    "sync",
+				"label":    "非同步",
+				"value":    "0",
+				"selected": "",
+			},
+		})
 	//formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
 	//formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
 	formList.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
-
 	return
 }
 
