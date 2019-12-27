@@ -26,8 +26,9 @@ type Tag struct {
 // Sample ...
 type Sample struct {
 	Model
-	Index string
-	Addr  string //sample address
+	Index   string
+	Addr    string //sample address
+	VideoID string `gorm:"varchar(36) column:video_id"`
 }
 
 // Video ...
@@ -61,7 +62,7 @@ type Video struct {
 	Series       string    `gorm:"series" json:"series"`                  //系列
 	Tags         []*Tag    `gorm:"many2many:video_tags" json:"tags"`      //标签
 	Length       string    `gorm:"length" json:"length"`                  //时长
-	Sample       []*Sample `gorm:"foreignkey:id" json:"sample"`           //样板图
+	Sample       []*Sample `gorm:"foreignkey:video_id" json:"sample"`     //样板图
 	Uncensored   bool      `gorm:"uncensored" json:"uncensored"`          //有码,无码
 }
 
