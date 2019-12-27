@@ -32,7 +32,7 @@ func TestInsertVideo(t *testing.T) {
 				video: &Video{
 					No:    "1",
 					Intro: "",
-					Alias: []Alias{{
+					Alias: []*Alias{{
 						Name: "alias1",
 					}},
 					ThumbHash:    "",
@@ -60,7 +60,7 @@ func TestInsertVideo(t *testing.T) {
 					Series:       "",
 					Tags:         nil,
 					Length:       "",
-					Sample: []Sample{
+					Sample: []*Sample{
 						{
 							Index: "1",
 							Addr:  "SampleLink",
@@ -95,12 +95,12 @@ func TestVideo_JSON(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var v Video
-			find := DB().Where("id = ?", "0f74afdb-286b-11ea-8520-00155d012d1c").Find(&v)
+			find := DB().Preload("Alias").Preload("Roles").Preload("Sample").Preload("Tags").Where("id = ?", "0f74afdb-286b-11ea-8520-00155d012d1c").Find(&v)
 			if got := find.Error; got != nil {
 				t.Errorf("Find() = %v, want %v", got, nil)
 			}
 			if got := v.JSON(); got != "" {
-				t.Errorf("JSON() = %v", got)
+				t.Logf("JSON() = %v", got)
 			}
 		})
 	}
