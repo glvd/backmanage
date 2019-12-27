@@ -70,10 +70,10 @@ func VideoTable() (videoTable table.Table) {
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 	formList.AddField("SourcePath", "source_path", db.Varchar, form.Text)
-	videoTable.GetForm().SetTabGroups(types.
-		NewTabGroups("video_no", "intro", "created_at").
-		AddGroup("source_path", "tags", "actors")).
-		SetTabHeaders("profile1", "profile2")
+	//videoTable.GetInfo().SetTabGroups(types.
+	//	NewTabGroups("video_no", "intro", "created_at").
+	//	AddGroup("source_path", "tags", "actors"))
+	//SetTabHeaders("profile1", "profile2")
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
 }
