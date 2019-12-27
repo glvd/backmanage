@@ -65,7 +65,7 @@ func main() {
 
 	r.GET("/admin", func(ctx *gin.Context) {
 		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
-			return pages.GetDashBoard2Content()
+			return pages.GetServiceDashBoardContent()
 		})
 	})
 
