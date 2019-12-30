@@ -30,21 +30,11 @@ func FileTable() (fTable table.Table) {
 
 	info.SetTable("file").SetTitle("Files").SetDescription("Files")
 
-	//fTable.GetInfo().SetTabGroups(types.
-	//	NewTabGroups("video_no", "intro", "created_at").
-	//	AddGroup("source_path", "tags", "actors")).
-	//	SetTabHeaders("profile1", "profile2")
 	//edit/add form
 	formList := fTable.GetForm()
 
 	formList.AddField("Address", "address", db.Varchar, form.File).FieldNotAllowEdit()
-	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
-	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 	formList.AddField("Name", "name", db.Varchar, form.Text)
-	//fTable.GetInfo().SetTabGroups(types.
-	//	NewTabGroups("video_no", "intro", "created_at").
-	//	AddGroup("source_path", "tags", "actors"))
-	//SetTabHeaders("profile1", "profile2")
 	formList.SetTable("file").SetTitle("Files").SetDescription("Files")
 	return
 }
