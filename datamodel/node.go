@@ -8,6 +8,7 @@ import (
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
+	"github.com/goextension/log"
 )
 
 // GetNodeTable ...
@@ -50,12 +51,16 @@ func GetNodeTable() (nodeTable table.Table) {
 	formList := nodeTable.GetForm()
 	formList.SetBeforeInsert(NodeInfo)
 	formList.SetBeforeUpdate(NodeInfo)
+	formList.SetPostHook(func(values form2.Values) error {
+		log.Infow("post hook")
+		return nil
+	})
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text)
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	//formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("Interval", "interval", db.Int, form.Text).FieldDefault("3")
-	formList.AddField("SyncData", "sync", db.Tinyint, form.Radio).FieldDefault("2").
+	formList.AddField("SyncData", "sync", db.Tinyint, form.Radio).
 		FieldOptions([]map[string]string{
 			{
 				"field":    "sync",
@@ -66,7 +71,7 @@ func GetNodeTable() (nodeTable table.Table) {
 				"field":    "sync",
 				"label":    "非同步",
 				"value":    "2",
-				"selected": "checked",
+				"selected": "",
 			},
 		})
 	//formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
@@ -85,19 +90,18 @@ func NodeInfo(values form2.Values) error {
 		values.Add("sync", "2")
 	}
 	values.Add("node_addr", addr)
+	values.Add("node_id", "abnormal")
+	values.Add("node_status", "0")
 	n, e := node.NewSingleNode(addr)
 	if e != nil {
-		values.Add("node_id", "abnormal")
-		values.Add("node_status", "0")
 		return nil
 	}
-
-	if n.ID() == nil {
-		values.Add("node_id", "abnormal")
-		values.Add("node_status", "0")
+	nid := n.ID()
+	if nid == nil {
+		log.Infow("nodeinfo", "null id", nid)
 		return nil
 	}
-	values.Add("node_id", n.ID().ID)
+	values.Add("node_id", nid.ID)
 	node.AddNode(addr, n)
 	values.Add("node_status", "1")
 

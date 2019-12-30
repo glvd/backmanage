@@ -62,7 +62,6 @@ func main() {
 	r.Static("/uploads", rootPath+"/uploads")
 
 	// you can custom your pages like:
-
 	r.GET("/admin", func(ctx *gin.Context) {
 		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
 			return pages.GetServiceDashBoardContent()
