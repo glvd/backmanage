@@ -54,7 +54,7 @@ func VideoTable() (videoTable table.Table) {
 		return SplitArguments(value)
 	}).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Source", "source_path", db.Varchar).FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
+	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")

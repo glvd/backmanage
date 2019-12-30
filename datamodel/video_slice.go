@@ -37,17 +37,11 @@ func VideoSliceTable() (vsTable table.Table) {
 		return "<img height=\"120px\" src=\"" + img + "\"/>"
 	})
 
-	info.AddField("VideoID", "video_id", db.Varchar)
-	info.AddField("VideoNo", "video_no", db.Varchar).FieldWidth(120).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("Intro", "intro", db.Varchar).FieldWidth(640).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("Actors", "actors", db.Varchar).FieldWidth(120).FieldSortable().FieldDisplay(func(value types.FieldModel) interface{} {
-		return SplitArguments(value)
-	}).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("Tags", "tags", db.Varchar).FieldWidth(180).FieldDisplay(func(value types.FieldModel) interface{} {
-		return SplitArguments(value)
-	}).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("Source", "source_path", db.Varchar).FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
-	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
+	info.AddField("VideoNo", "video_no", db.Varchar).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
+	info.AddField("Address", "address", db.Varchar)
+	info.AddField("Progress", "progress", db.Varchar)
+	info.AddField("Status", "status", db.Varchar)
+	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
