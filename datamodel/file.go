@@ -37,7 +37,7 @@ func FileTable() (fTable table.Table) {
 	//edit/add form
 	formList := fTable.GetForm()
 
-	formList.AddField("Address", "address", db.Varchar, form.Text).FieldNotAllowEdit()
+	formList.AddField("Address", "address", db.Varchar, form.File).FieldNotAllowEdit()
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 	formList.AddField("Name", "name", db.Varchar, form.Text)
