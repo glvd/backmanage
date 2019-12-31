@@ -26,9 +26,11 @@ func FileTable() (fTable table.Table) {
 	info := fTable.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Address", "address", db.Text)
-	info.AddField("Name", "name", db.Text)
+	info.AddField("Name", "name", db.Text).FieldFilterable(types.FilterType{
+		Operator: types.FilterOperatorLike,
+	})
 	info.AddField("Size", "size", db.Varchar).FieldSortable()
-	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
+	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
 	info.SetTable("files").SetTitle("Files").SetDescription("Files")
