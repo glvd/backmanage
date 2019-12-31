@@ -43,7 +43,6 @@ func VideoTable() (videoTable table.Table) {
 		}
 		return "<img height=\"120px\" src=\"" + img + "\"/>"
 	})
-
 	info.AddField("VideoID", "video_id", db.Varchar)
 	info.AddField("VideoNo", "video_no", db.Varchar).FieldWidth(120).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Intro", "intro", db.Varchar).FieldWidth(640).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})

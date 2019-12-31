@@ -2,6 +2,7 @@ package datamodel
 
 import (
 	"github.com/glvd/backmanage/data"
+	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/modules/db"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
@@ -54,7 +55,7 @@ func VideoSliceTable() (vsTable table.Table) {
 	formList := vsTable.GetForm()
 	formList.SetBeforeInsert(VideoInsert)
 
-	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldNotAllowEdit()
+	formList.AddField("VideoNo", "video_no", db.Varchar, form.SelectSingle).FieldOptions(GetVideoList())
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 
@@ -65,4 +66,22 @@ func VideoSliceTable() (vsTable table.Table) {
 	//SetTabHeaders("profile1", "profile2")
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 	return
+}
+
+// GetVideoList ...
+func GetVideoList() []map[string]string {
+	videos, err := model.GetVideos(500)
+	if err != nil {
+		return nil
+	}
+	var r []map[string]string
+	for _, video := range videos {
+		r = append(r, map[string]string{
+			"field": "video_no",
+			"label": video.No,
+			//"value":    "1",
+			//"selected": "selected",
+		})
+	}
+	return r
 }

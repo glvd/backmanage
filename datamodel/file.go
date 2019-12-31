@@ -25,7 +25,9 @@ func FileTable() (fTable table.Table) {
 	})
 	info := fTable.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
-	info.AddField("Address", "address", db.Text)
+	info.AddField("Address", "address", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
+		return "<a target=\"_blank\" href=\"" + "/uploads/" + value.Value + "\">" + value.Value + "</a>"
+	})
 	info.AddField("Name", "name", db.Text).FieldFilterable(types.FilterType{
 		Operator: types.FilterOperatorLike,
 	})

@@ -55,13 +55,14 @@ func main() {
 	cfg.CustomHeadHtml = template2.HTML(`<link rel="icon" type="image/png" sizes="32x32" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-64x64.png">
         <link rel="icon" type="image/png" sizes="16x16" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-16x16.png">`)
+	model.InitDatabase(cfg)
+
+	err := model.Sync(model.DB())
+
 	if err := eng.AddConfig(cfg).AddPlugins(adminPlugin).Use(r); err != nil {
 		panic(err)
 	}
 
-	model.InitDatabase(cfg)
-
-	err := model.Sync(model.DB())
 	if err != nil {
 		panic(err)
 	}
