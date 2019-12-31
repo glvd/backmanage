@@ -2,9 +2,11 @@ package datamodel
 
 import (
 	"github.com/glvd/go-admin/modules/db"
+	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
+	"log"
 )
 
 // FileTable ...
@@ -25,16 +27,29 @@ func FileTable() (fTable table.Table) {
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Address", "address", db.Text)
 	info.AddField("Name", "name", db.Text)
+	info.AddField("Size", "size", db.Varchar).FieldSortable()
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
-	info.SetTable("file").SetTitle("Files").SetDescription("Files")
+	info.SetTable("files").SetTitle("Files").SetDescription("Files")
 
 	//edit/add form
 	formList := fTable.GetForm()
+	formList.SetBeforeInsert(func(values form2.Values) error {
+		log.Printf("f:%+v", values)
+		fname := values.Get("_filename_address")
+		if fname != "" && values.Get("name") == "" {
+			values.Add("name", fname)
+		}
+		fsize := values.Get("_filesize_address")
+		if fsize != "" {
+			values.Add("size", fsize)
+		}
 
-	formList.AddField("Address", "address", db.Varchar, form.File).FieldNotAllowEdit()
+		return nil
+	})
+	formList.AddField("Address", "address", db.Varchar, form.File)
 	formList.AddField("Name", "name", db.Varchar, form.Text)
-	formList.SetTable("file").SetTitle("Files").SetDescription("Files")
+	formList.SetTable("files").SetTitle("Files").SetDescription("Files")
 	return
 }

@@ -13,4 +13,6 @@ import (
 var Generators = map[string]table.Generator{
 	"nodes":  GetNodeTable,
 	"videos": VideoTable,
+	"slices": VideoSliceTable,
+	"files":  FileTable,
 }

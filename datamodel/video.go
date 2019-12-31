@@ -30,7 +30,7 @@ func VideoTable() (videoTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := videoTable.GetInfo()
+	info := videoTable.GetInfo().HideFilterArea()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "" {

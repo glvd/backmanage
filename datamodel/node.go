@@ -60,15 +60,15 @@ func GetNodeTable() (nodeTable table.Table) {
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	//formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	formList.AddField("Interval", "interval", db.Int, form.Text).FieldDefault("3")
-	formList.AddField("SyncData", "sync", db.Tinyint, form.Radio).
+	formList.AddField("SyncData", "sync", db.Tinyint, form.SelectSingle).
 		FieldOptions([]map[string]string{
 			{
 				"field":    "sync",
 				"label":    "同步",
 				"value":    "1",
-				"selected": "",
+				"selected": "selected",
 			}, {
-				"field":    "sync",
+				"field":    "async",
 				"label":    "非同步",
 				"value":    "2",
 				"selected": "",

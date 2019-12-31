@@ -57,7 +57,8 @@ func VideoSliceTable() (vsTable table.Table) {
 	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldNotAllowEdit()
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
-	formList.AddField("SourcePath", "source_path", db.Varchar, form.Text)
+
+	formList.AddField("Address", "address", db.Varchar, form.TextArea)
 	//vsTable.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))

@@ -10,6 +10,7 @@ import (
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/goextension/log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/glvd/backmanage/login"
@@ -24,7 +25,12 @@ import (
 
 func main() {
 	r := gin.Default()
-
+	r.Use(func(context *gin.Context) {
+		//if context.FullPath() == "/admin/new/files" {
+		log.Infow("path", "path", context.Request.URL.Path)
+		log.Infow("output", "params", context.Params)
+		//}
+	})
 	eng := engine.Default()
 
 	adminPlugin := admin.NewAdmin(datamodel.Generators)
@@ -67,6 +73,13 @@ func main() {
 			return pages.GetServiceDashBoardContent()
 		})
 	})
+
+	// you can custom your pages like:
+	//r.GET("/admin", func(ctx *gin.Context) {
+	//	eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
+	//		return pages.GetServiceDashBoardContent()
+	//	})
+	//})
 
 	r.GET("/admin/dash", func(ctx *gin.Context) {
 		eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
