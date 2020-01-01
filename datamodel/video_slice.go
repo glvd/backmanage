@@ -45,7 +45,7 @@ func VideoSliceTable() (vsTable table.Table) {
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
-	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
+	info.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
 
 	//vsTable.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
@@ -64,7 +64,7 @@ func VideoSliceTable() (vsTable table.Table) {
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")
-	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
+	formList.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
 	return
 }
 
