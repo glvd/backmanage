@@ -6,7 +6,7 @@ require (
 	github.com/denisenkom/go-mssqldb v0.0.0-20190707035753-2be1aa521ff4 // indirect
 	github.com/gin-gonic/gin v1.5.0
 	github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0
-	github.com/glvd/go-admin v1.1.21
+	github.com/glvd/go-admin v1.1.24
 	github.com/glvd/themes v0.0.18
 	github.com/go-echarts/go-echarts v0.0.0-20190915064101-cbb3b43ade5d
 	github.com/go-sql-driver/mysql v1.4.1
@@ -19,6 +19,7 @@ require (
 	github.com/javscrape/go-scrape v0.0.10
 	github.com/jinzhu/gorm v1.9.11
 	github.com/multiformats/go-multiaddr v0.1.1
+	github.com/robfig/cron/v3 v3.0.0
 	github.com/satori/go.uuid v1.2.0
 	google.golang.org/appengine v1.6.5 // indirect
 )

@@ -1,6 +1,7 @@
 package node
 
 import "sync"
+import "github.com/robfig/cron/v3"
 
 // Nodes ...
 type Nodes struct {
@@ -9,6 +10,7 @@ type Nodes struct {
 }
 
 var nodes Nodes
+var nodeCron = cron.New()
 
 // AddNode ...
 func AddNode(name string, node Node) {
@@ -23,6 +25,10 @@ func GetNode(name string) Node {
 // DeleteNode ...
 func DeleteNode(name string) {
 	nodes.Del(name)
+}
+
+// Start ...
+func Start() {
 }
 
 // Get ...
