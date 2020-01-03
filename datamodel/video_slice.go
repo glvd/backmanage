@@ -56,34 +56,29 @@ func VideoSliceTable() (vsTable table.Table) {
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 	info.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
 
-	var videos []map[string]string
-	videosModel, err := DB().Table("videos").Select("id", "video_no", "video_id").All()
+	var videos, addresses []map[string]string
+	videosModel, err := DB().Table("videos").Select("id", "video_no", "video_id").OrderBy("created_at", "desc").All()
 	if err != nil {
 		panic(err)
 	}
-	for _, v := range videosModel {
+	for _, m := range videosModel {
 		videos = append(videos, map[string]string{
-			"field": v["video_no"].(string),
-			"value": "video_id",
+			"field": m["video_no"].(string),
+			"value": m["video_id"].(string),
 		})
 	}
 
-	//parentsModel, _ := table("adm_menu").
-	//	Select("id", "title").
-	//	Where("id", ">", 0).
-	//	OrderBy("order", "asc").
-	//	All()
+	addressesModel, _ := DB().Table("files").
+		Select("id", "name", "address").
+		OrderBy("created_at", "desc").
+		All()
 
-	//for _, v := range parentsModel {
-	//	parents = append(parents, map[string]string{
-	//		"field": v["title"].(string),
-	//		"value": strconv.FormatInt(v["id"].(int64), 10),
-	//	})
-	//}
-	//parents = append([]map[string]string{{
-	//	"field": "root",
-	//	"value": "0",
-	//}}, parents...)
+	for _, m := range addressesModel {
+		addresses = append(addresses, map[string]string{
+			"field": m["name"].(string),
+			"value": m["address"].(string),
+		})
+	}
 
 	//edit/add form
 	formList := vsTable.GetForm()
@@ -91,11 +86,15 @@ func VideoSliceTable() (vsTable table.Table) {
 	formList.SetBeforeUpdate(FilterVideoID())
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
 	formList.AddField("VideoID", "video_id", db.Varchar, form.SelectSingle).FieldOptions(videos).FieldDisplay(func(model types.FieldModel) interface{} {
+		//log.Infow("slice", "model", model)
 		return model.Value
 	})
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
-	formList.AddField("Address", "address", db.Varchar, form.Text)
+	formList.AddField("Address", "address", db.Varchar, form.SelectSingle).FieldOptions(videos).FieldDisplay(func(model types.FieldModel) interface{} {
+		//log.Infow("slice", "model", model)
+		return model.Value
+	})
 	//vsTable.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
@@ -119,6 +118,7 @@ func GetVideoList(id string) []*models.Video {
 // FilterVideoID ...
 func FilterVideoID() func(values form2.Values) error {
 	return func(values form2.Values) error {
+		log.Infow("filter", "values", values)
 		vid := strings.TrimSpace(values.Get("video_id"))
 
 		list := GetVideoList(vid)
