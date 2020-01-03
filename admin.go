@@ -10,7 +10,7 @@ import (
 	"github.com/glvd/go-admin/template/types"
 )
 
-// Admin is a GoAdmin plugins.
+// Admin is a GoAdmin modules.
 type Admin struct {
 	app      *context.App
 	tableCfg table.GeneratorList
@@ -40,12 +40,12 @@ func (admin *Admin) InitPlugin(services service.List) {
 	controller.SetServices(services)
 }
 
-// App is the global Admin plugins.
+// App is the global Admin modules.
 var App = &Admin{
 	tableCfg: make(table.GeneratorList),
 }
 
-// NewAdmin return the global Admin plugins.
+// NewAdmin return the global Admin modules.
 func NewAdmin(tableCfg table.GeneratorList) *Admin {
 	App.tableCfg = tableCfg
 	return App
