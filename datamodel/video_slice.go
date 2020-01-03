@@ -56,7 +56,7 @@ func VideoSliceTable() (vsTable table.Table) {
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 	info.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
 
-	var videos, parents []map[string]string
+	var videos []map[string]string
 	videosModel, err := DB().Table("videos").Select("id", "video_no", "video_id").All()
 	if err != nil {
 		panic(err)

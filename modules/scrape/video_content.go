@@ -1,4 +1,4 @@
-package datamodel
+package scrape
 
 import (
 	"encoding/json"
@@ -49,8 +49,8 @@ type VideoContent struct {
 }
 
 // LoadContent ...
-func LoadContent(path string) (*Content, error) {
-	var content Content
+func LoadContent(path string) (*VideoContent, error) {
+	var content VideoContent
 	info, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err

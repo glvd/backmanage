@@ -2,7 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	"github.com/glvd/backmanage/datamodel"
+	"github.com/glvd/backmanage/modules/scrape"
 	"strconv"
 	"strings"
 )
@@ -134,7 +134,7 @@ func (v *Video) Count() (count int) {
 }
 
 // CopyInfo ...
-func (v *Video) CopyInfo(content *datamodel.VideoContent) error {
+func (v *Video) CopyInfo(content *scrape.VideoContent) error {
 	v.No = content.ID
 	v.Intro = content.Title
 	for _, genre := range content.Genres {
