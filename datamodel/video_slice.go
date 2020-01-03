@@ -1,7 +1,6 @@
 package datamodel
 
 import (
-	"github.com/glvd/backmanage/data"
 	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
@@ -12,6 +11,7 @@ import (
 	"github.com/goextension/log"
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
+	"strings"
 )
 
 // VideoSliceTable ...
@@ -19,9 +19,9 @@ func VideoSliceTable() (vsTable table.Table) {
 	vsTable = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     true,
-		Editable:   false,
+		Editable:   true,
 		Deletable:  true,
-		Exportable: true,
+		Exportable: false,
 		Connection: table.DefaultConnectionName,
 		PrimaryKey: table.PrimaryKey{
 			Type: db.Int,
@@ -29,18 +29,18 @@ func VideoSliceTable() (vsTable table.Table) {
 		},
 	})
 	info := vsTable.GetInfo()
-	info.AddField("ID", "id", db.Varchar).FieldSortable()
-	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
-		if value.Value == "" {
-			return ""
-		}
-
-		img := data.ImageLoad(value.Value)
-		if img != "" {
-			img = "data:image/jpg;base64," + img
-		}
-		return "<img height=\"120px\" src=\"" + img + "\"/>"
-	})
+	info.AddField("ID", "id", db.Int).FieldSortable()
+	//info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
+	//	if value.Value == "" {
+	//		return ""
+	//	}
+	//
+	//	img := data.ImageLoad(value.Value)
+	//	if img != "" {
+	//		img = "data:image/jpg;base64," + img
+	//	}
+	//	return "<img height=\"120px\" src=\"" + img + "\"/>"
+	//})
 
 	info.AddField("VideoID", "video_id", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
 		fromString, err := uuid.FromString(value.Value)
@@ -63,15 +63,9 @@ func VideoSliceTable() (vsTable table.Table) {
 	//	SetTabHeaders("profile1", "profile2")
 	//edit/add form
 	formList := vsTable.GetForm()
-	formList.SetBeforeInsert(func(values form2.Values) error {
-		list := GetVideoList(values.Get("video_id"))
-		log.Infow("slice", "list", len(list))
-		if len(list) == 0 {
-			values.Add("video_id", uuid.Nil.String())
-		}
-		return nil
-	})
-
+	formList.SetBeforeInsert(FilterVideoID())
+	formList.SetBeforeUpdate(FilterVideoID())
+	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
 	formList.AddField("VideoID", "video_id", db.Varchar, form.Text)
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
@@ -94,4 +88,19 @@ func GetVideoList(id string) []*model.Video {
 	}
 
 	return videos
+}
+
+// FilterVideoID ...
+func FilterVideoID() func(values form2.Values) error {
+	return func(values form2.Values) error {
+		vid := strings.TrimSpace(values.Get("video_id"))
+
+		list := GetVideoList(vid)
+		log.Infow("slice", "list", len(list))
+		if len(list) == 0 {
+			vid = uuid.Nil.String()
+		}
+		values.Add("video_id", vid)
+		return nil
+	}
 }
