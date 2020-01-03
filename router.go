@@ -1,4 +1,4 @@
-package admin
+package main
 
 import (
 	"github.com/glvd/go-admin/context"

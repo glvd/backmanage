@@ -1,7 +1,6 @@
 package datamodel
 
 import (
-	"github.com/glvd/backmanage/data"
 	"github.com/glvd/backmanage/model"
 	"github.com/glvd/backmanage/scrape"
 	"github.com/glvd/go-admin/modules/db"
@@ -37,7 +36,7 @@ func VideoTable() (videoTable table.Table) {
 			return ""
 		}
 
-		img := data.ImageLoad(value.Value)
+		img := ImageLoad(value.Value)
 		if img != "" {
 			img = "data:image/jpg;base64," + img
 		}

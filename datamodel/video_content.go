@@ -1,4 +1,4 @@
-package data
+package datamodel
 
 import (
 	"encoding/json"
@@ -29,8 +29,8 @@ type Star struct {
 	Alias    []string //other name(katakana,...)
 }
 
-// Content ...
-type Content struct {
+// VideoContent ...
+type VideoContent struct {
 	From          string //where this
 	Uncensored    bool
 	ID            string

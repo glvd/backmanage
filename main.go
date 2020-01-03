@@ -82,21 +82,21 @@ func main() {
 	//	})
 	//})
 
-	r.GET("/admin/dash", func(ctx *gin.Context) {
-		eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
-			return pages.GetDashBoardContent()
-		})
-	})
-	r.GET("/pages/video", func(ctx *gin.Context) {
-		eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
-			return pages.GetVideoContent()
-		})
-	})
-	r.GET("/admin/form1", func(ctx *gin.Context) {
-		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
-			return pages.GetForm1Content()
-		})
-	})
+	//r.GET("/admin/dash", func(ctx *gin.Context) {
+	//	eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
+	//		return pages.GetDashBoardContent()
+	//	})
+	//})
+	//r.GET("/pages/video", func(ctx *gin.Context) {
+	//	eng.Content(ctx, func(ctx interface{}) (panel types.Panel, e error) {
+	//		return pages.GetVideoContent()
+	//	})
+	//})
+	//r.GET("/admin/form1", func(ctx *gin.Context) {
+	//	eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
+	//		return pages.GetForm1Content()
+	//	})
+	//})
 
 	r.GET("/admin/echarts", func(ctx *gin.Context) {
 		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {

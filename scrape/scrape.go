@@ -2,6 +2,7 @@ package scrape
 
 import (
 	"github.com/glvd/backmanage/data"
+	"github.com/glvd/backmanage/datamodel"
 	"github.com/javscrape/go-scrape"
 	"path/filepath"
 	"sync"
@@ -64,5 +65,5 @@ func FindContent(no string) (*data.Content, error) {
 	if err := s.Output(); err != nil {
 		return nil, err
 	}
-	return data.LoadContent(filepath.Join(path, no, ".info"))
+	return datamodel.LoadContent(filepath.Join(path, no, ".info"))
 }
