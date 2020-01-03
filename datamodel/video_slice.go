@@ -91,7 +91,7 @@ func VideoSliceTable() (vsTable table.Table) {
 	})
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
-	formList.AddField("Address", "address", db.Varchar, form.SelectSingle).FieldOptions(videos).FieldDisplay(func(model types.FieldModel) interface{} {
+	formList.AddField("Address", "address", db.Varchar, form.SelectSingle).FieldOptions(addresses).FieldDisplay(func(model types.FieldModel) interface{} {
 		//log.Infow("slice", "model", model)
 		return model.Value
 	})
