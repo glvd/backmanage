@@ -24,3 +24,8 @@ var Generators = map[string]table.Generator{
 func SetConnection(conn db.Connection) {
 	globalDB = conn
 }
+
+// DB ...
+func DB() *db.SQL {
+	return db.WithDriver(globalDB)
+}

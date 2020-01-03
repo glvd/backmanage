@@ -56,16 +56,43 @@ func VideoSliceTable() (vsTable table.Table) {
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 	info.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
 
-	//vsTable.GetInfo().SetTabGroups(types.
-	//	NewTabGroups("video_no", "intro", "created_at").
-	//	AddGroup("source_path", "tags", "actors")).
-	//	SetTabHeaders("profile1", "profile2")
+	var videos, parents []map[string]string
+	videosModel, err := DB().Table("videos").Select("id", "video_no", "video_id").All()
+	if err != nil {
+		panic(err)
+	}
+	for _, v := range videosModel {
+		videos = append(videos, map[string]string{
+			"field": v["video_no"].(string),
+			"value": "video_id",
+		})
+	}
+
+	//parentsModel, _ := table("adm_menu").
+	//	Select("id", "title").
+	//	Where("id", ">", 0).
+	//	OrderBy("order", "asc").
+	//	All()
+
+	//for _, v := range parentsModel {
+	//	parents = append(parents, map[string]string{
+	//		"field": v["title"].(string),
+	//		"value": strconv.FormatInt(v["id"].(int64), 10),
+	//	})
+	//}
+	//parents = append([]map[string]string{{
+	//	"field": "root",
+	//	"value": "0",
+	//}}, parents...)
+
 	//edit/add form
 	formList := vsTable.GetForm()
 	formList.SetBeforeInsert(FilterVideoID())
 	formList.SetBeforeUpdate(FilterVideoID())
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
-	formList.AddField("VideoID", "video_id", db.Varchar, form.Text)
+	formList.AddField("VideoID", "video_id", db.Varchar, form.SelectSingle).FieldOptions(videos).FieldDisplay(func(model types.FieldModel) interface{} {
+		return model.Value
+	})
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 	formList.AddField("Address", "address", db.Varchar, form.Text)

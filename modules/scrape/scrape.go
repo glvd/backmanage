@@ -1,7 +1,6 @@
 package scrape
 
 import (
-	"github.com/glvd/backmanage/data"
 	"github.com/glvd/backmanage/datamodel"
 	"github.com/javscrape/go-scrape"
 	"path/filepath"
@@ -55,7 +54,7 @@ func NewScrape() scrape.IScrape {
 }
 
 // FindContent ...
-func FindContent(no string) (*data.Content, error) {
+func FindContent(no string) (*datamodel.VideoContent, error) {
 	path := filepath.Join("data", "info")
 	DefaultOption.Output = path
 	s := NewScrape()
