@@ -4,8 +4,7 @@ import (
 	_ "github.com/glvd/backmanage/adapter/gin"
 	"github.com/glvd/backmanage/datamodel"
 	"github.com/glvd/backmanage/echarts"
-	"github.com/glvd/backmanage/model"
-	"github.com/glvd/go-admin/plugins/admin"
+	"github.com/glvd/backmanage/models"
 	"github.com/glvd/go-admin/template/chartjs"
 	_ "github.com/glvd/themes/adminlte"
 	_ "github.com/glvd/themes/sword"
@@ -33,7 +32,7 @@ func main() {
 	})
 	eng := engine.Default()
 
-	adminPlugin := admin.NewAdmin(datamodel.Generators)
+	adminPlugin := NewAdmin(datamodel.Generators)
 
 	// add generator, first parameter is the url prefix of table when visit.
 	// example:
@@ -55,9 +54,9 @@ func main() {
 	cfg.CustomHeadHtml = template2.HTML(`<link rel="icon" type="image/png" sizes="32x32" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-64x64.png">
         <link rel="icon" type="image/png" sizes="16x16" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-16x16.png">`)
-	model.InitDatabase(cfg)
+	models.InitDatabase(cfg)
 
-	err := model.Sync(model.DB())
+	err := models.Sync(models.DB())
 
 	if err := eng.AddConfig(cfg).AddPlugins(adminPlugin).Use(r); err != nil {
 		panic(err)
@@ -98,11 +97,11 @@ func main() {
 	//	})
 	//})
 
-	r.GET("/admin/echarts", func(ctx *gin.Context) {
-		eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
-			return pages.GetDashBoard3Content()
-		})
-	})
+	//r.GET("/admin/echarts", func(ctx *gin.Context) {
+	//	eng.Content(ctx, func(ctx interface{}) (types.Panel, error) {
+	//		return pages.GetDashBoard3Content()
+	//	})
+	//})
 
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.Redirect(http.StatusMovedPermanently, "/admin")

@@ -1,7 +1,7 @@
 package datamodel
 
 import (
-	"github.com/glvd/backmanage/model"
+	"github.com/glvd/backmanage/models"
 	"github.com/glvd/backmanage/scrape"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
@@ -90,13 +90,13 @@ func VideoInsert(values form2.Values) error {
 		if err != nil {
 			return err
 		}
-		var v model.Video
+		var v models.Video
 		err = v.CopyInfo(c)
 		if err != nil {
 			return err
 		}
 
-		err = model.InsertVideo(&v)
+		err = models.InsertVideo(&v)
 		if err != nil {
 			return err
 		}

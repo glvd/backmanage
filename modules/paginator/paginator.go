@@ -1,7 +1,7 @@
 package paginator
 
 import (
-	"github.com/glvd/go-admin/plugins/admin/modules/parameter"
+	"github.com/glvd/backmanage/modules/parameter"
 	template2 "github.com/glvd/go-admin/template"
 	"github.com/glvd/go-admin/template/components"
 	"github.com/glvd/go-admin/template/types"

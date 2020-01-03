@@ -1,4 +1,4 @@
-package model
+package models
 
 // Hash ...
 type Hash struct {

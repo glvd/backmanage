@@ -1,8 +1,8 @@
-package model
+package models
 
 import (
 	"encoding/json"
-	"github.com/glvd/backmanage/data"
+	"github.com/glvd/backmanage/datamodel"
 	"strconv"
 	"strings"
 )
@@ -134,7 +134,7 @@ func (v *Video) Count() (count int) {
 }
 
 // CopyInfo ...
-func (v *Video) CopyInfo(content *data.Content) error {
+func (v *Video) CopyInfo(content *datamodel.VideoContent) error {
 	v.No = content.ID
 	v.Intro = content.Title
 	for _, genre := range content.Genres {

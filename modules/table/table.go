@@ -10,13 +10,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/glvd/backmanage/modules"
+	"github.com/glvd/backmanage/modules/form"
+	"github.com/glvd/backmanage/modules/paginator"
+	"github.com/glvd/backmanage/modules/parameter"
 	"github.com/glvd/go-admin/modules/db"
 	"github.com/glvd/go-admin/modules/db/dialect"
 	"github.com/glvd/go-admin/modules/logger"
-	"github.com/glvd/go-admin/plugins/admin/modules"
-	"github.com/glvd/go-admin/plugins/admin/modules/form"
-	"github.com/glvd/go-admin/plugins/admin/modules/paginator"
-	"github.com/glvd/go-admin/plugins/admin/modules/parameter"
 	"github.com/glvd/go-admin/template/types"
 )
 
