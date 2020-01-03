@@ -9,6 +9,7 @@ import (
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
+	"github.com/goextension/log"
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
 )
@@ -43,8 +44,8 @@ func VideoSliceTable() (vsTable table.Table) {
 
 	info.AddField("VideoID", "video_id", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
 		fromString, err := uuid.FromString(value.Value)
-		if err != nil || !uuid.Equal(fromString, uuid.Nil) {
-			return "invalid id"
+		if err != nil || uuid.Equal(fromString, uuid.Nil) {
+			return "invalid id!"
 		}
 		return value.Value
 	}).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
@@ -64,6 +65,7 @@ func VideoSliceTable() (vsTable table.Table) {
 	formList := vsTable.GetForm()
 	formList.SetBeforeInsert(func(values form2.Values) error {
 		list := GetVideoList(values.Get("video_id"))
+		log.Infow("slice", "list", len(list))
 		if len(list) == 0 {
 			values.Add("video_id", uuid.Nil.String())
 		}
