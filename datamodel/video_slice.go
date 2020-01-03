@@ -54,7 +54,6 @@ func VideoSliceTable() (vsTable table.Table) {
 	info.AddField("Status", "status", db.Tinyint)
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
-
 	info.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
 
 	//vsTable.GetInfo().SetTabGroups(types.

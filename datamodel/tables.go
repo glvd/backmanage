@@ -1,6 +1,7 @@
 package datamodel
 
 import (
+	"github.com/glvd/go-admin/modules/db"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 )
 
@@ -15,4 +16,13 @@ var Generators = map[string]table.Generator{
 	"videos": VideoTable,
 	"slices": VideoSliceTable,
 	"files":  FileTable,
+}
+
+// Table ...
+func Table(table string) *db.SQL {
+	return connection().Table(table)
+}
+
+func connection() *db.SQL {
+	return db.WithDriver(db.GetConnection(services))
 }

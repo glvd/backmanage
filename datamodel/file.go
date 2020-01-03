@@ -34,7 +34,11 @@ func FileTable() (fTable table.Table) {
 	info.AddField("Size", "size", db.Varchar).FieldSortable()
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
+	info.SetPreDeleteFn(func(ids []string) error {
+		for i, id := range ids {
 
+		}
+	})
 	info.SetTable("files").SetTitle("Files").SetDescription("Files")
 
 	//edit/add form
