@@ -196,12 +196,13 @@ func InsertVideo(video *Video) error {
 }
 
 // GetVideos ...
-func GetVideos(limit int, offsets ...int) (v []*Video, e error) {
-	offset := -1
-	if len(offsets) != 0 {
-		offset = offsets[0]
+func GetVideos(options ...Options) (v []*Video, e error) {
+	db := DB().Preload("Alias").Preload("Roles").Preload("Sample").Preload("Tags")
+	for _, option := range options {
+		db = option(db)
 	}
-	db := DB().Preload("Alias").Preload("Roles").Preload("Sample").Preload("Tags").Limit(limit).Offset(offset).Find(&v)
+
+	db.Find(&v)
 	if db.Error != nil {
 		return nil, db.Error
 	}

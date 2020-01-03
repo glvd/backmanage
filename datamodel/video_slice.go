@@ -4,10 +4,12 @@ import (
 	"github.com/glvd/backmanage/data"
 	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/modules/db"
+	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
+	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -60,12 +62,18 @@ func VideoSliceTable() (vsTable table.Table) {
 	//	SetTabHeaders("profile1", "profile2")
 	//edit/add form
 	formList := vsTable.GetForm()
-	formList.SetBeforeInsert(VideoInsert)
+	formList.SetBeforeInsert(func(values form2.Values) error {
+		list := GetVideoList(values.Get("video_id"))
+		if len(list) == 0 {
+			values.Add("video_id", uuid.Nil.String())
+		}
+		return nil
+	})
 
 	formList.AddField("VideoID", "video_id", db.Varchar, form.Text)
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
-	formList.AddField("Address", "address", db.Varchar, form.TextArea)
+	formList.AddField("Address", "address", db.Varchar, form.Text)
 	//vsTable.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
@@ -75,19 +83,13 @@ func VideoSliceTable() (vsTable table.Table) {
 }
 
 // GetVideoList ...
-func GetVideoList() []map[string]string {
-	videos, err := model.GetVideos(500)
+func GetVideoList(id string) []*model.Video {
+	videos, err := model.GetVideos(func(db *gorm.DB) *gorm.DB {
+		return db.Where("id = ?", id)
+	})
 	if err != nil {
 		return nil
 	}
-	var r []map[string]string
-	for _, video := range videos {
-		r = append(r, map[string]string{
-			"field": "video_no",
-			"label": video.No,
-			//"value":    "1",
-			//"selected": "selected",
-		})
-	}
-	return r
+
+	return videos
 }

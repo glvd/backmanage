@@ -23,6 +23,9 @@ type Model struct {
 	DeletedAt *time.Time `sql:"index"`
 }
 
+// Options ...
+type Options func(db *gorm.DB) *gorm.DB
+
 var _db *gorm.DB
 var syncTable = make(map[string]interface{})
 
@@ -93,4 +96,18 @@ func MustString(v string, d string) string {
 		return d
 	}
 	return v
+}
+
+// Limit ...
+func Limit(i int) Options {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Limit(i)
+	}
+}
+
+// Offset ...
+func Offset(i int) Options {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Offset(i)
+	}
 }
