@@ -8,6 +8,7 @@ import (
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
+	uuid "github.com/satori/go.uuid"
 )
 
 // VideoSliceTable ...
@@ -38,10 +39,16 @@ func VideoSliceTable() (vsTable table.Table) {
 		return "<img height=\"120px\" src=\"" + img + "\"/>"
 	})
 
-	info.AddField("VideoID", "video_id", db.Varchar).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
+	info.AddField("VideoID", "video_id", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
+		fromString, err := uuid.FromString(value.Value)
+		if err != nil || !uuid.Equal(fromString, uuid.Nil) {
+			return "invalid id"
+		}
+		return value.Value
+	}).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Address", "address", db.Varchar)
 	info.AddField("Progress", "progress", db.Varchar)
-	info.AddField("Status", "status", db.Varchar)
+	info.AddField("Status", "status", db.Tinyint)
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
@@ -55,10 +62,9 @@ func VideoSliceTable() (vsTable table.Table) {
 	formList := vsTable.GetForm()
 	formList.SetBeforeInsert(VideoInsert)
 
-	formList.AddField("VideoNo", "video_no", db.Varchar, form.SelectSingle).FieldOptions(GetVideoList())
+	formList.AddField("VideoID", "video_id", db.Varchar, form.Text)
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
-
 	formList.AddField("Address", "address", db.Varchar, form.TextArea)
 	//vsTable.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
