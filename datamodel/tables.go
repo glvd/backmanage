@@ -5,6 +5,8 @@ import (
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 )
 
+var globalDB db.Connection
+
 // Generators is a map of table models.
 //
 // The key of generators is the prefix of table info url.
@@ -18,11 +20,7 @@ var Generators = map[string]table.Generator{
 	"files":  FileTable,
 }
 
-// Table ...
-func Table(table string) *db.SQL {
-	return connection().Table(table)
-}
-
-func connection() *db.SQL {
-	return db.WithDriver(db.GetConnection(services))
+// SetConnection ...
+func SetConnection(conn db.Connection) {
+	globalDB = conn
 }

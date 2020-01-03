@@ -58,7 +58,7 @@ func main() {
 
 	err := models.Sync(models.DB())
 
-	if err := eng.AddConfig(cfg).AddPlugins(adminPlugin).Use(r); err != nil {
+	if err := eng.AddConfig(cfg).ResolveConnection(datamodel.SetConnection, config.DriverMysql).AddPlugins(adminPlugin).Use(r); err != nil {
 		panic(err)
 	}
 
