@@ -45,7 +45,7 @@ func NodeTable() (nodeTable table.Table) {
 	})
 	info.AddField("CreateTime", "created_at", db.Timestamp)
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
-	info.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
+	info.SetTable("dhash_nodes").SetTitle("Nodes").SetDescription("Nodes")
 
 	//edit/add form
 	formList := nodeTable.GetForm()
@@ -76,7 +76,7 @@ func NodeTable() (nodeTable table.Table) {
 		})
 	//formList.AddField("CreateTime", "created_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
 	//formList.AddField("UpdateTime", "updated_at", db.Timestamp, form.Datetime).FieldNotAllowAdd().FieldNotAllowEdit().FieldHide()
-	formList.SetTable("nodes").SetTitle("Nodes").SetDescription("Nodes")
+	formList.SetTable("dhash_nodes").SetTitle("Nodes").SetDescription("Nodes")
 	return
 }
 
