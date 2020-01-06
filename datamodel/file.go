@@ -10,8 +10,8 @@ import (
 )
 
 // FileTable ...
-func FileTable() (fTable table.Table) {
-	fTable = table.NewDefaultTable(table.Config{
+func FileTable() (t table.Table) {
+	t = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     true,
 		Editable:   false,
@@ -23,7 +23,7 @@ func FileTable() (fTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := fTable.GetInfo()
+	info := t.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Address", "address", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		return "<a target=\"_blank\" href=\"" + "/uploads/" + value.Value + "\">" + value.Value + "</a>"
@@ -37,10 +37,10 @@ func FileTable() (fTable table.Table) {
 	info.SetPreDeleteFn(func(ids []string) error {
 		return nil
 	})
-	info.SetTable("files").SetTitle("Files").SetDescription("Files")
+	info.SetTable("dhash_files").SetTitle("Files").SetDescription("Files")
 
 	//edit/add form
-	formList := fTable.GetForm()
+	formList := t.GetForm()
 	formList.SetBeforeInsert(func(values form2.Values) error {
 		log.Printf("f:%+v", values)
 		fname := values.Get("_filename_address")
@@ -56,6 +56,6 @@ func FileTable() (fTable table.Table) {
 	})
 	formList.AddField("Address", "address", db.Varchar, form.File)
 	formList.AddField("Name", "name", db.Varchar, form.Text)
-	formList.SetTable("files").SetTitle("Files").SetDescription("Files")
+	formList.SetTable("dhash_files").SetTitle("Files").SetDescription("Files")
 	return
 }

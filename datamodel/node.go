@@ -12,13 +12,13 @@ import (
 )
 
 // NodeTable ...
-func NodeTable() (nodeTable table.Table) {
+func NodeTable() (t table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"
 
-	nodeTable = table.NewDefaultTable(cfg)
-	info := nodeTable.GetInfo()
+	t = table.NewDefaultTable(cfg)
+	info := t.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("NodeID", "node_id", db.Varchar)
 	info.AddField("NodeAddr", "node_addr", db.Text)
@@ -48,7 +48,7 @@ func NodeTable() (nodeTable table.Table) {
 	info.SetTable("dhash_nodes").SetTitle("Nodes").SetDescription("Nodes")
 
 	//edit/add form
-	formList := nodeTable.GetForm()
+	formList := t.GetForm()
 	formList.SetBeforeInsert(NodeInfo)
 	formList.SetBeforeUpdate(NodeInfo)
 	formList.SetPostHook(func(values form2.Values) error {

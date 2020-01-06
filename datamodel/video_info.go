@@ -15,9 +15,9 @@ import (
 	"strings"
 )
 
-// VideoTable ...
-func VideoTable() (videoTable table.Table) {
-	videoTable = table.NewDefaultTable(table.Config{
+// VideoInfoTable ...
+func VideoInfoTable() (t table.Table) {
+	t = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     true,
 		Editable:   false,
@@ -29,7 +29,7 @@ func VideoTable() (videoTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := videoTable.GetInfo().HideFilterArea()
+	info := t.GetInfo().HideFilterArea()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "" {
@@ -57,19 +57,19 @@ func VideoTable() (videoTable table.Table) {
 
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 
-	//videoTable.GetInfo().SetTabGroups(types.
+	//t.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors")).
 	//	SetTabHeaders("profile1", "profile2")
 	//edit/add form
-	formList := videoTable.GetForm()
+	formList := t.GetForm()
 	formList.SetBeforeInsert(VideoInsert)
 
 	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldNotAllowEdit()
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 	formList.AddField("SourcePath", "source_path", db.Varchar, form.Text)
-	//videoTable.GetInfo().SetTabGroups(types.
+	//t.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")
@@ -90,7 +90,7 @@ func VideoInsert(values form2.Values) error {
 		if err != nil {
 			return err
 		}
-		var v model.VideoInfo
+		var v model.VideoDetail
 		err = v.CopyInfo(c)
 		if err != nil {
 			return err

@@ -9,8 +9,8 @@ import (
 )
 
 // GlobalTable ...
-func GlobalTable() (gTable table.Table) {
-	gTable = table.NewDefaultTable(table.Config{
+func GlobalTable() (t table.Table) {
+	t = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     true,
 		Editable:   false,
@@ -22,7 +22,7 @@ func GlobalTable() (gTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := gTable.GetInfo()
+	info := t.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Tag", "tag", db.Text).FieldFilterable(types.FilterType{
 		Operator: types.FilterOperatorLike,
@@ -36,7 +36,7 @@ func GlobalTable() (gTable table.Table) {
 	info.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")
 
 	//edit/add form
-	formList := gTable.GetForm()
+	formList := t.GetForm()
 	formList.AddField("Tag", "tag", db.Varchar, form.Text)
 	formList.AddField("Value", "value", db.Varchar, form.Text)
 	formList.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")

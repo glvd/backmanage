@@ -16,7 +16,7 @@ var globalDB db.Connection
 var Generators = map[string]table.Generator{
 	"globals": GlobalTable,
 	"nodes":   NodeTable,
-	"videos":  VideoTable,
+	"videos":  VideoInfoTable,
 	"slices":  VideoSliceTable,
 	"files":   FileTable,
 }

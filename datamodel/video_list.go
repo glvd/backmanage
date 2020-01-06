@@ -9,8 +9,8 @@ import (
 )
 
 // VideoListTable ...
-func VideoListTable() (vlTable table.Table) {
-	vlTable = table.NewDefaultTable(table.Config{
+func VideoListTable() (t table.Table) {
+	t = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     true,
 		Editable:   false,
@@ -22,7 +22,7 @@ func VideoListTable() (vlTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := vlTable.GetInfo()
+	info := t.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("path", "video_id", db.Varchar)
 	info.AddField("VideoNo", "video_no", db.Varchar).FieldWidth(120).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
@@ -39,19 +39,19 @@ func VideoListTable() (vlTable table.Table) {
 
 	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
 
-	//vlTable.GetInfo().SetTabGroups(types.
+	//t.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors")).
 	//	SetTabHeaders("profile1", "profile2")
 	//edit/add form
-	formList := vlTable.GetForm()
+	formList := t.GetForm()
 	formList.SetBeforeInsert(VideoInsert)
 
 	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldNotAllowEdit()
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)
 	formList.AddField("SourcePath", "source_path", db.Varchar, form.Text)
-	//vlTable.GetInfo().SetTabGroups(types.
+	//t.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")

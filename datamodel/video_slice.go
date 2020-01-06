@@ -15,8 +15,8 @@ import (
 )
 
 // VideoSliceTable ...
-func VideoSliceTable() (vsTable table.Table) {
-	vsTable = table.NewDefaultTable(table.Config{
+func VideoSliceTable() (t table.Table) {
+	t = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     true,
 		Editable:   true,
@@ -28,7 +28,7 @@ func VideoSliceTable() (vsTable table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
-	info := vsTable.GetInfo()
+	info := t.GetInfo()
 	info.AddField("ID", "id", db.Int).FieldSortable()
 	//info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 	//	if value.Value == "" {
@@ -81,7 +81,7 @@ func VideoSliceTable() (vsTable table.Table) {
 	}
 
 	//edit/add form
-	formList := vsTable.GetForm()
+	formList := t.GetForm()
 	formList.SetBeforeInsert(FilterVideoID())
 	formList.SetBeforeUpdate(FilterVideoID())
 	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
@@ -95,7 +95,7 @@ func VideoSliceTable() (vsTable table.Table) {
 		//log.Infow("slice", "model", model)
 		return model.Value
 	})
-	//vsTable.GetInfo().SetTabGroups(types.
+	//t.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")
@@ -104,7 +104,7 @@ func VideoSliceTable() (vsTable table.Table) {
 }
 
 // GetVideoList ...
-func GetVideoList(id string) []*model.VideoInfo {
+func GetVideoList(id string) []*model.VideoDetail {
 	videos, err := model.GetVideos(func(db *gorm.DB) *gorm.DB {
 		return db.Where("id = ?", id)
 	})

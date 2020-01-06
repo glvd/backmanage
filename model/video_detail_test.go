@@ -19,7 +19,7 @@ func init() {
 // TestInsertVideo ...
 func TestInsertVideo(t *testing.T) {
 	type args struct {
-		video *VideoInfo
+		video *VideoDetail
 	}
 	tests := []struct {
 		name    string
@@ -29,7 +29,7 @@ func TestInsertVideo(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				video: &VideoInfo{
+				video: &VideoDetail{
 					No:    "1",
 					Intro: "",
 					Alias: []*Alias{{
@@ -94,7 +94,7 @@ func TestVideo_JSON(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var v VideoInfo
+			var v VideoDetail
 			find := DB().Preload("Alias").Preload("Roles").Preload("Sample").Preload("Tags").Where("id = ?", "0f74afdb-286b-11ea-8520-00155d012d1c").Find(&v)
 			if got := find.Error; got != nil {
 				t.Errorf("Find() = %v, want %v", got, nil)
