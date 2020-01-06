@@ -4,7 +4,7 @@ import (
 	_ "github.com/glvd/backmanage/adapter/gin"
 	"github.com/glvd/backmanage/datamodel"
 	"github.com/glvd/backmanage/echarts"
-	"github.com/glvd/backmanage/models"
+	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/plugins/admin"
 	"github.com/glvd/go-admin/template/chartjs"
 	_ "github.com/glvd/themes/adminlte"
@@ -55,9 +55,9 @@ func main() {
 	cfg.CustomHeadHtml = template2.HTML(`<link rel="icon" type="image/png" sizes="32x32" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-64x64.png">
         <link rel="icon" type="image/png" sizes="16x16" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-16x16.png">`)
-	models.InitDatabase(cfg)
+	model.InitDatabase(cfg)
 
-	err := models.Sync(models.DB())
+	err := model.Sync(model.DB())
 
 	if err := eng.AddConfig(cfg).ResolveConnection(datamodel.SetConnection, config.DriverMysql).AddPlugins(adminPlugin).Use(r); err != nil {
 		panic(err)

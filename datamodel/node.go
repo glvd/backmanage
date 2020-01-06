@@ -11,8 +11,8 @@ import (
 	"github.com/goextension/log"
 )
 
-// GetNodeTable ...
-func GetNodeTable() (nodeTable table.Table) {
+// NodeTable ...
+func NodeTable() (nodeTable table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"

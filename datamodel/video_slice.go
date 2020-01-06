@@ -1,7 +1,7 @@
 package datamodel
 
 import (
-	"github.com/glvd/backmanage/models"
+	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
@@ -104,8 +104,8 @@ func VideoSliceTable() (vsTable table.Table) {
 }
 
 // GetVideoList ...
-func GetVideoList(id string) []*models.Video {
-	videos, err := models.GetVideos(func(db *gorm.DB) *gorm.DB {
+func GetVideoList(id string) []*model.Video {
+	videos, err := model.GetVideos(func(db *gorm.DB) *gorm.DB {
 		return db.Where("id = ?", id)
 	})
 	if err != nil {

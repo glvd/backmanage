@@ -2,12 +2,10 @@ package datamodel
 
 import (
 	"github.com/glvd/go-admin/modules/db"
-	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
-	"log"
 )
 
 // GlobalTable ...
@@ -39,19 +37,6 @@ func GlobalTable() (gTable table.Table) {
 
 	//edit/add form
 	formList := gTable.GetForm()
-	formList.SetBeforeInsert(func(values form2.Values) error {
-		log.Printf("f:%+v", values)
-		fname := values.Get("_filename_address")
-		if fname != "" && values.Get("name") == "" {
-			values.Add("name", fname)
-		}
-		fsize := values.Get("_filesize_address")
-		if fsize != "" {
-			values.Add("size", fsize)
-		}
-
-		return nil
-	})
 	formList.AddField("Tag", "tag", db.Varchar, form.File)
 	formList.AddField("Value", "value", db.Varchar, form.Text)
 	formList.SetTable("global").SetTitle("Globals").SetDescription("Globals")

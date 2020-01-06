@@ -1,4 +1,4 @@
-package models
+package model
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 
 const mysqlSource = "%s:%s@tcp(%s)/%s?loc=%s&charset=utf8mb4&parseTime=true"
 
-// Model base model definition, including fields `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt`, which could be embedded in your models
+// Model base model definition, including fields `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt`, which could be embedded in your model
 //    type User struct {
 //      gorm.Model
 //    }

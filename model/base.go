@@ -1,4 +1,4 @@
-package models
+package model
 
 import (
 	"github.com/glvd/go-admin/modules/db"
