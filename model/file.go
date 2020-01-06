@@ -5,8 +5,8 @@ import "github.com/jinzhu/gorm"
 // File ...
 type File struct {
 	gorm.Model
-	Address string
-	Size    string
+	Address string `gorm:"type:text"`
+	Size    string `gorm:"not null;default:EMPTY_STRING"`
 	Name    string
 }
 
