@@ -37,7 +37,7 @@ func GlobalTable() (gTable table.Table) {
 
 	//edit/add form
 	formList := gTable.GetForm()
-	formList.AddField("Tag", "tag", db.Varchar, form.File)
+	formList.AddField("Tag", "tag", db.Varchar, form.Text)
 	formList.AddField("Value", "value", db.Varchar, form.Text)
 	formList.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")
 	return
