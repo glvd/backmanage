@@ -12,3 +12,7 @@ type Node struct {
 	NodeAddr   string
 	Interval   int
 }
+
+func init() {
+	RegisterTable(Node{})
+}
