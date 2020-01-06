@@ -55,7 +55,7 @@ func VideoInfoTable() (t table.Table) {
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
-	info.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
+	info.SetTable("dhash_video_infos").SetTitle("Videos").SetDescription("Videos")
 
 	//t.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
@@ -73,7 +73,7 @@ func VideoInfoTable() (t table.Table) {
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")
-	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
+	formList.SetTable("dhash_video_infos").SetTitle("Videos").SetDescription("Videos")
 	return
 }
 
