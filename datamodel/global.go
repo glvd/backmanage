@@ -33,12 +33,12 @@ func GlobalTable() (gTable table.Table) {
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
-	info.SetTable("global").SetTitle("Globals").SetDescription("Globals")
+	info.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")
 
 	//edit/add form
 	formList := gTable.GetForm()
 	formList.AddField("Tag", "tag", db.Varchar, form.File)
 	formList.AddField("Value", "value", db.Varchar, form.Text)
-	formList.SetTable("global").SetTitle("Globals").SetDescription("Globals")
+	formList.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")
 	return
 }

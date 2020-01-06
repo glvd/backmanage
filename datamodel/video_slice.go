@@ -104,7 +104,7 @@ func VideoSliceTable() (vsTable table.Table) {
 }
 
 // GetVideoList ...
-func GetVideoList(id string) []*model.Video {
+func GetVideoList(id string) []*model.VideoInfo {
 	videos, err := model.GetVideos(func(db *gorm.DB) *gorm.DB {
 		return db.Where("id = ?", id)
 	})

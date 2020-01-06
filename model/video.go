@@ -33,8 +33,8 @@ type Sample struct {
 	VideoID string `gorm:"varchar(36) column:video_id"`
 }
 
-// Video ...
-type Video struct {
+// VideoInfo ...
+type VideoInfo struct {
 	Model
 	No           string    `gorm:"no" json:"no"`                                                //编号
 	Intro        string    `gorm:"varchar(2048)" json:"intro"`                                  //简介
@@ -103,11 +103,11 @@ type OnlineVideoJSON struct {
 }
 
 func init() {
-	RegisterTable(Video{}, Sample{}, Tag{}, Role{}, Alias{})
+	RegisterTable(VideoInfo{}, Sample{}, Tag{}, Role{}, Alias{})
 }
 
 // JSON ...
-func (v *Video) JSON() string {
+func (v *VideoInfo) JSON() string {
 	m, err := json.Marshal(v)
 	if err != nil {
 		return ""
@@ -116,7 +116,7 @@ func (v *Video) JSON() string {
 }
 
 // FromJSON ...
-func (v *Video) FromJSON(m string) error {
+func (v *VideoInfo) FromJSON(m string) error {
 	e := json.Unmarshal([]byte(m), v)
 	if e != nil {
 		return e
@@ -125,8 +125,8 @@ func (v *Video) FromJSON(m string) error {
 }
 
 // Count ...
-func (v *Video) Count() (count int) {
-	db := DB().Model(&Video{}).Count(&count)
+func (v *VideoInfo) Count() (count int) {
+	db := DB().Model(&VideoInfo{}).Count(&count)
 	if db.Error != nil {
 		return -1
 	}
@@ -134,7 +134,7 @@ func (v *Video) Count() (count int) {
 }
 
 // CopyInfo ...
-func (v *Video) CopyInfo(content *scrape.VideoContent) error {
+func (v *VideoInfo) CopyInfo(content *scrape.VideoContent) error {
 	v.No = content.ID
 	v.Intro = content.Title
 	for _, genre := range content.Genres {
@@ -169,7 +169,7 @@ func (v *Video) CopyInfo(content *scrape.VideoContent) error {
 }
 
 // RoleString ...
-func (v *Video) RoleString() (s string) {
+func (v *VideoInfo) RoleString() (s string) {
 	var roles []string
 	for _, role := range v.Roles {
 		roles = append(roles, role.Name)
@@ -178,7 +178,7 @@ func (v *Video) RoleString() (s string) {
 }
 
 // TagString ...
-func (v *Video) TagString() (s string) {
+func (v *VideoInfo) TagString() (s string) {
 	var tags []string
 	for _, tag := range v.Tags {
 		tags = append(tags, tag.Name)
@@ -187,7 +187,7 @@ func (v *Video) TagString() (s string) {
 }
 
 // InsertVideo ...
-func InsertVideo(video *Video) error {
+func InsertVideo(video *VideoInfo) error {
 	db := DB().Create(video)
 	if db.Error != nil {
 		return db.Error
@@ -196,7 +196,7 @@ func InsertVideo(video *Video) error {
 }
 
 // GetVideos ...
-func GetVideos(options ...Options) (v []*Video, e error) {
+func GetVideos(options ...Options) (v []*VideoInfo, e error) {
 	db := DB().Preload("Alias").Preload("Roles").Preload("Sample").Preload("Tags")
 	for _, option := range options {
 		db = option(db)

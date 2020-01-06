@@ -90,7 +90,7 @@ func VideoInsert(values form2.Values) error {
 		if err != nil {
 			return err
 		}
-		var v model.Video
+		var v model.VideoInfo
 		err = v.CopyInfo(c)
 		if err != nil {
 			return err
