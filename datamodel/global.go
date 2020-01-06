@@ -6,6 +6,7 @@ import (
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
+	editType "github.com/glvd/go-admin/template/types/table"
 	"log"
 )
 
@@ -25,19 +26,16 @@ func GlobalTable() (gTable table.Table) {
 	})
 	info := gTable.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
-	info.AddField("Address", "address", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
-		return "<a target=\"_blank\" href=\"" + "/uploads/" + value.Value + "\">" + value.Value + "</a>"
-	})
-	info.AddField("Name", "name", db.Text).FieldFilterable(types.FilterType{
+	info.AddField("Tag", "tag", db.Text).FieldFilterable(types.FilterType{
 		Operator: types.FilterOperatorLike,
-	})
-	info.AddField("Size", "size", db.Varchar).FieldSortable()
+	}).FieldEditAble(editType.Text)
+	info.AddField("Value", "value", db.Text).FieldFilterable(types.FilterType{
+		Operator: types.FilterOperatorLike,
+	}).FieldEditAble(editType.Text)
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
-	info.SetPreDeleteFn(func(ids []string) error {
-		return nil
-	})
-	info.SetTable("files").SetTitle("Files").SetDescription("Files")
+
+	info.SetTable("global").SetTitle("Globals").SetDescription("Globals")
 
 	//edit/add form
 	formList := gTable.GetForm()
@@ -54,8 +52,8 @@ func GlobalTable() (gTable table.Table) {
 
 		return nil
 	})
-	formList.AddField("Address", "address", db.Varchar, form.File)
-	formList.AddField("Name", "name", db.Varchar, form.Text)
-	formList.SetTable("files").SetTitle("Files").SetDescription("Files")
+	formList.AddField("Tag", "tag", db.Varchar, form.File)
+	formList.AddField("Value", "value", db.Varchar, form.Text)
+	formList.SetTable("global").SetTitle("Globals").SetDescription("Globals")
 	return
 }
