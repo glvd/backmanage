@@ -2,7 +2,6 @@ package datamodel
 
 import (
 	"github.com/glvd/backmanage/model"
-	"github.com/glvd/backmanage/modules/scrape"
 	"github.com/glvd/go-admin/modules/db"
 	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
@@ -57,10 +56,10 @@ func GlobalTable() (t table.Table) {
 
 	formList.SetPostHook(func(values form2.Values) error {
 		model.RefreshGlobal(func(key string, value string) {
-			if key == "proxy" {
-				scrape.DefaultOption.Proxy = value
-				scrape.RenewScrape()
-			}
+			//if key == "proxy" {
+			//	scrape.DefaultOption.Proxy = value
+			//	scrape.RenewScrape()
+			//}
 		})
 		return nil
 	})

@@ -3,7 +3,6 @@ package scrape
 import (
 	"github.com/javscrape/go-scrape"
 	"path/filepath"
-	"sync"
 )
 
 // Option ...
@@ -14,15 +13,11 @@ type Option struct {
 	Output   string
 }
 
-// DefaultOption ...
-var DefaultOption = defaultOption()
-
 // Scrape ...
 var Scrape scrape.IScrape
-var once sync.Once
 
 // DefaultOption ...
-func defaultOption() Option {
+func DefaultOption() Option {
 	return Option{
 		Proxy:    "socks5://127.0.0.1:1080",
 		Optimize: true,
@@ -32,42 +27,34 @@ func defaultOption() Option {
 }
 
 // NewScrape ...
-func NewScrape() (s scrape.IScrape) {
-	once.Do(func() {
-		s = newScrape()
-	})
-	return Scrape
+func NewScrape(option Option) (s scrape.IScrape) {
+	return newScrape(option)
 }
 
 // NewScrape ...
-func newScrape() scrape.IScrape {
-	if DefaultOption.Proxy != "" {
-		scrape.RegisterProxy(DefaultOption.Proxy)
+func newScrape(option Option) scrape.IScrape {
+	if option.Proxy != "" {
+		scrape.RegisterProxy(option.Proxy)
 	}
 
-	if DefaultOption.Output != "" {
-		scrape.DefaultOutputPath = DefaultOption.Output
+	if option.Output != "" {
+		scrape.DefaultOutputPath = option.Output
 	}
 
 	Scrape = scrape.NewScrape(
 		scrape.GrabOption(scrape.NewGrabJavbus()),
 		scrape.GrabOption(scrape.NewGrabJavdb()),
-		scrape.OptimizeOption(DefaultOption.Optimize),
-		scrape.ExactOption(DefaultOption.Exact),
+		scrape.OptimizeOption(option.Optimize),
+		scrape.ExactOption(option.Exact),
 	)
 	return Scrape
 }
 
-// RenewScrape ...
-func RenewScrape() scrape.IScrape {
-	return newScrape()
-}
-
 // FindContent ...
-func FindContent(no string) (*VideoContent, error) {
+func FindContent(no string, option Option) (*VideoContent, error) {
 	path := filepath.Join("data", "info")
-	DefaultOption.Output = path
-	s := NewScrape()
+	option.Output = path
+	s := NewScrape(option)
 	if err := s.Find(no); err != nil {
 		return nil, err
 	}

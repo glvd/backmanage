@@ -16,7 +16,7 @@ require (
 	github.com/ipfs/go-ipfs-files v0.0.6
 	github.com/ipfs/go-ipfs-http-client v0.0.5
 	github.com/ipfs/interface-go-ipfs-core v0.2.5
-	github.com/javscrape/go-scrape v0.0.10
+	github.com/javscrape/go-scrape v0.0.13
 	github.com/jinzhu/gorm v1.9.11
 	github.com/multiformats/go-multiaddr v0.1.1
 	github.com/robfig/cron/v3 v3.0.0

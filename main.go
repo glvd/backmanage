@@ -5,7 +5,6 @@ import (
 	"github.com/glvd/backmanage/datamodel"
 	"github.com/glvd/backmanage/echarts"
 	"github.com/glvd/backmanage/model"
-	"github.com/glvd/go-admin/modules/logger"
 	"github.com/glvd/go-admin/plugins/admin"
 	"github.com/glvd/go-admin/template/chartjs"
 	_ "github.com/glvd/themes/adminlte"
@@ -35,7 +34,7 @@ func main() {
 	eng := engine.Default()
 
 	adminPlugin := admin.NewAdmin(datamodel.Generators)
-	logger.OpenSQLLog()
+	//logger.OpenSQLLog()
 	// add generator, first parameter is the url prefix of table when visit.
 	// example:
 	//

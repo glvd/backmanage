@@ -87,7 +87,9 @@ func VideoInsert(values form2.Values) error {
 			log.Error("remove", err)
 		}
 		values.Add("video_no", no)
-		c, err := scrape.FindContent(no)
+		op := scrape.DefaultOption()
+		op.Proxy = model.LoadGlobal("proxy")
+		c, err := scrape.FindContent(no, op)
 		if err != nil {
 			return err
 		}

@@ -37,36 +37,36 @@ type Sample struct {
 type VideoDetail struct {
 	Model        `json:"-"`
 	InternalID   string    `gorm:"column:internal_id;varchar(36);not null" sql:"index" json:"id"`
-	No           string    `gorm:"column:no" json:"no"`                                                       //编号
-	Intro        string    `gorm:"column:intro;varchar(2048)" json:"intro"`                                   //简介
-	Alias        []*Alias  `gorm:"column:alias;many2many:video_aliases" json:"alias"`                         //别名，片名
-	ThumbHash    string    `gorm:"column:thumb_hash" json:"thumb_hash"`                                       //缩略图
-	PosterHash   string    `gorm:"column:poster_hash" json:"poster_hash"`                                     //海报地址
-	SourceHash   string    `gorm:"column:source_hash" json:"source_hash"`                                     //原片地址
-	M3U8Hash     string    `gorm:"column:m3u8_hash" json:"m3u8_hash"`                                         //切片地址
-	Key          string    `gorm:"column:key"  json:"key"`                                                    //秘钥
-	M3U8         string    `gorm:"column:m3u8" json:"m3u8"`                                                   //M3U8名
-	Roles        []*Role   `gorm:"column:roles;many2many:video_roles" json:"role"`                            //主演
-	Director     string    `gorm:"column:director" json:"director"`                                           //导演
-	Systematics  string    `gorm:"column:systematics" json:"systematics"`                                     //分级
-	Season       string    `gorm:"column:season" json:"season"`                                               //季
-	TotalEpisode string    `gorm:"column:total_episode" json:"total_episode"`                                 //总集数
-	Episode      string    `gorm:"column:episode" json:"episode"`                                             //集数
-	Producer     string    `gorm:"column:producer" json:"producer"`                                           //生产商
-	Publisher    string    `gorm:"column:publisher" json:"publisher"`                                         //发行商
-	Type         string    `gorm:"column:type" json:"type"`                                                   //类型：film，FanDrama
-	Format       string    `gorm:"column:format" json:"format"`                                               //输出格式：3D，2D,VR(VR格式：Half-SBS：左右半宽,Half-OU：上下半高,SBS：左右全宽)
-	Language     string    `gorm:"column:language" json:"language"`                                           //语言
-	Caption      string    `gorm:"column:caption" json:"caption"`                                             //字幕
-	Group        string    `gorm:"column:group" json:"group"`                                                 //分组
-	Index        string    `gorm:"column:index" json:"index"`                                                 //索引
-	Date         string    `gorm:"column:date" json:"date"`                                                   //发行日期
-	Sharpness    string    `gorm:"column:sharpness" json:"sharpness"`                                         //清晰度
-	Series       string    `gorm:"column:series" json:"series"`                                               //系列
-	Tags         []*Tag    `gorm:"column:tags;many2many:video_tags" json:"tags"`                              //标签
-	Length       string    `gorm:"column:length" json:"length"`                                               //时长
-	Sample       []*Sample `gorm:"column:sample;foreignkey:video_id;association_foreignkey:id" json:"sample"` //样板图
-	Uncensored   bool      `gorm:"column:uncensored" json:"uncensored"`                                       //有码,无码
+	No           string    `gorm:"column:no" json:"no"`                                         //编号
+	Intro        string    `gorm:"column:intro;varchar(2048)" json:"intro"`                     //简介
+	Alias        []*Alias  `gorm:"many2many:video_aliases" json:"alias"`                        //别名，片名
+	ThumbHash    string    `gorm:"column:thumb_hash" json:"thumb_hash"`                         //缩略图
+	PosterHash   string    `gorm:"column:poster_hash" json:"poster_hash"`                       //海报地址
+	SourceHash   string    `gorm:"column:source_hash" json:"source_hash"`                       //原片地址
+	M3U8Hash     string    `gorm:"column:m3u8_hash" json:"m3u8_hash"`                           //切片地址
+	Key          string    `gorm:"column:key"  json:"key"`                                      //秘钥
+	M3U8         string    `gorm:"column:m3u8" json:"m3u8"`                                     //M3U8名
+	Roles        []*Role   `gorm:"many2many:video_roles" json:"role"`                           //主演
+	Director     string    `gorm:"column:director" json:"director"`                             //导演
+	Systematics  string    `gorm:"column:systematics" json:"systematics"`                       //分级
+	Season       string    `gorm:"column:season" json:"season"`                                 //季
+	TotalEpisode string    `gorm:"column:total_episode" json:"total_episode"`                   //总集数
+	Episode      string    `gorm:"column:episode" json:"episode"`                               //集数
+	Producer     string    `gorm:"column:producer" json:"producer"`                             //生产商
+	Publisher    string    `gorm:"column:publisher" json:"publisher"`                           //发行商
+	Type         string    `gorm:"column:type" json:"type"`                                     //类型：film，FanDrama
+	Format       string    `gorm:"column:format" json:"format"`                                 //输出格式：3D，2D,VR(VR格式：Half-SBS：左右半宽,Half-OU：上下半高,SBS：左右全宽)
+	Language     string    `gorm:"column:language" json:"language"`                             //语言
+	Caption      string    `gorm:"column:caption" json:"caption"`                               //字幕
+	Group        string    `gorm:"column:group" json:"group"`                                   //分组
+	Index        string    `gorm:"column:index" json:"index"`                                   //索引
+	Date         string    `gorm:"column:date" json:"date"`                                     //发行日期
+	Sharpness    string    `gorm:"column:sharpness" json:"sharpness"`                           //清晰度
+	Series       string    `gorm:"column:series" json:"series"`                                 //系列
+	Tags         []*Tag    `gorm:"many2many:video_tags" json:"tags"`                            //标签
+	Length       string    `gorm:"column:length" json:"length"`                                 //时长
+	Sample       []*Sample `gorm:"foreignkey:video_id;association_foreignkey:id" json:"sample"` //样板图
+	Uncensored   bool      `gorm:"column:uncensored" json:"uncensored"`                         //有码,无码
 }
 
 // OnlineVideoJSON ...
