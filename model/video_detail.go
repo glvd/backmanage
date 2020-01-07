@@ -36,7 +36,7 @@ type Sample struct {
 // VideoDetail ...
 type VideoDetail struct {
 	Model
-	InternalID   string    `gorm:"varchar(36);not null"`
+	InternalID   string    `gorm:"varchar(36);not null" sql:"index"`
 	No           string    `gorm:"no" json:"no"`                                                //编号
 	Intro        string    `gorm:"varchar(2048)" json:"intro"`                                  //简介
 	Alias        []*Alias  `gorm:"many2many:video_aliases" json:"alias"`                        //别名，片名
