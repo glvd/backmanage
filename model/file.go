@@ -1,13 +1,11 @@
 package model
 
-import "github.com/jinzhu/gorm"
-
 // File ...
 type File struct {
-	gorm.Model
+	Model
 	Address string `gorm:"type:text"`
-	Size    string
-	Name    string
+	Size    string `gorm:"not null;default:''"`
+	Name    string `gorm:"not null;default:''"`
 }
 
 func init() {

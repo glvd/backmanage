@@ -17,9 +17,17 @@ const mysqlSource = "%s:%s@tcp(%s)/%s?loc=%s&charset=utf8mb4&parseTime=true"
 //      gorm.Model
 //    }
 type Model struct {
-	ID        string `gorm:"primary_key"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID        string     `gorm:"primary_key"`
+	CreatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP"`
+	UpdatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0)"`
+	DeletedAt *time.Time `sql:"index"`
+}
+
+// IntModel ...
+type IntModel struct {
+	ID        int        `gorm:"primary_key"`
+	CreatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0)"`
+	UpdatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0)"`
 	DeletedAt *time.Time `sql:"index"`
 }
 
