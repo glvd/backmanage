@@ -9,6 +9,8 @@ import (
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
+	"github.com/goextension/log"
+	"github.com/google/uuid"
 )
 
 // GlobalTable ...
@@ -16,19 +18,19 @@ func GlobalTable() (t table.Table) {
 	t = table.NewDefaultTable(table.Config{
 		Driver:     db.DriverMysql,
 		CanAdd:     true,
-		Editable:   false,
+		Editable:   true,
 		Deletable:  true,
-		Exportable: true,
+		Exportable: false,
 		Connection: table.DefaultConnectionName,
 		PrimaryKey: table.PrimaryKey{
-			Type: db.Int,
+			Type: db.Varchar,
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
 
 	info := t.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
-	info.AddField("Tag", "tag", db.Text).FieldFilterable(types.FilterType{
+	info.AddField("Key", "key", db.Text).FieldFilterable(types.FilterType{
 		Operator: types.FilterOperatorLike,
 	}).FieldEditAble(editType.Text)
 	info.AddField("Value", "value", db.Text).FieldFilterable(types.FilterType{
@@ -41,7 +43,15 @@ func GlobalTable() (t table.Table) {
 
 	//edit/add form
 	formList := t.GetForm()
-	formList.AddField("Tag", "tag", db.Varchar, form.Text)
+	formList.SetBeforeInsert(func(values form2.Values) error {
+		log.Infow("global insert", "values", values)
+		//if values.Get("id") == "" {
+		//	values.Add("id", uuid.New().String())
+		//}
+		return nil
+	})
+	formList.AddField("ID", "id", db.Varchar, form.Default).FieldDefault(uuid.New().String()).FieldNotAllowEdit()
+	formList.AddField("Key", "key", db.Varchar, form.Text)
 	formList.AddField("Value", "value", db.Varchar, form.Text)
 	formList.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")
 

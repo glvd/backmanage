@@ -43,9 +43,9 @@ func FileTable() (t table.Table) {
 	//edit/add form
 	formList := t.GetForm()
 	formList.SetBeforeInsert(func(values form2.Values) error {
-		if values.Get("id") == "" {
-			values.Add("id", uuid.New().String())
-		}
+		//if values.Get("id") == "" {
+		//	values.Add("id", uuid.New().String())
+		//}
 		log.Printf("f:%+v", values)
 		fname := values.Get("_filename_address")
 		if fname != "" && values.Get("name") == "" {
@@ -58,6 +58,7 @@ func FileTable() (t table.Table) {
 
 		return nil
 	})
+	formList.AddField("ID", "id", db.Varchar, form.Default).FieldDefault(uuid.New().String()).FieldNotAllowEdit()
 	formList.AddField("Address", "address", db.Varchar, form.File)
 	formList.AddField("Name", "name", db.Varchar, form.Text)
 	formList.SetTable("dhash_files").SetTitle("Files").SetDescription("Files")

@@ -2,7 +2,7 @@ package model
 
 // File ...
 type File struct {
-	UUIDModel
+	Model
 	Address string `gorm:"type:text"`
 	Size    string `gorm:"not null;default:''"`
 	Name    string `gorm:"not null;default:''"`
