@@ -1,7 +1,9 @@
 package datamodel
 
 import (
+	"github.com/glvd/backmanage/model"
 	"github.com/glvd/go-admin/modules/db"
+	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
 	"github.com/glvd/go-admin/plugins/admin/modules/table"
 	"github.com/glvd/go-admin/template/types"
 	"github.com/glvd/go-admin/template/types/form"
@@ -22,6 +24,7 @@ func GlobalTable() (t table.Table) {
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
+
 	info := t.GetInfo()
 	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Tag", "tag", db.Text).FieldFilterable(types.FilterType{
@@ -40,5 +43,10 @@ func GlobalTable() (t table.Table) {
 	formList.AddField("Tag", "tag", db.Varchar, form.Text)
 	formList.AddField("Value", "value", db.Varchar, form.Text)
 	formList.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")
+
+	formList.SetPostHook(func(values form2.Values) error {
+		model.RefreshGlobal()
+		return nil
+	})
 	return
 }
