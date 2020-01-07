@@ -1,10 +1,8 @@
 package model
 
-import "github.com/jinzhu/gorm"
-
 // Global ...
 type Global struct {
-	gorm.Model
+	Model
 	Tag   string
 	Value string
 }

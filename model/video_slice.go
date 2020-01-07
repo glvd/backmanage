@@ -1,12 +1,8 @@
 package model
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 // VideoSlice ...
 type VideoSlice struct {
-	gorm.Model
+	Model
 	VideoID  string
 	Address  string
 	Progress string

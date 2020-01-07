@@ -1,10 +1,8 @@
 package model
 
-import "github.com/jinzhu/gorm"
-
 // Node ...
 type Node struct {
-	gorm.Model
+	Model
 	Sync       int
 	NodeType   string
 	NodeID     string

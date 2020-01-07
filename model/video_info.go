@@ -1,10 +1,8 @@
 package model
 
-import "github.com/jinzhu/gorm"
-
 // VideoInfo ...
 type VideoInfo struct {
-	gorm.Model
+	Model
 	PosterPath string
 	VideoID    string
 	VideoNo    string
