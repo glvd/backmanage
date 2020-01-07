@@ -54,29 +54,33 @@ func VideoSliceTable() (t table.Table) {
 	info.AddField("Status", "status", db.Tinyint)
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
-	info.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
+	info.SetTable("dhash_video_slices").SetTitle("Slice").SetDescription("Slice")
 
 	var videos, addresses []map[string]string
-	videosModel, err := DB().Table("dhash_video_infos").Select("id", "video_no", "video_id").OrderBy("created_at", "desc").All()
-	if err != nil {
-		panic(err)
+	var videosModel []*model.VideoInfo
+
+	videoRlt := model.DB().Order("created_at desc").Find(&videosModel)
+	if videoRlt.Error != nil {
+		panic(videoRlt.Error)
 	}
+
 	for _, m := range videosModel {
 		videos = append(videos, map[string]string{
-			"field": m["video_no"].(string),
-			"value": m["video_id"].(string),
+			"field": m.VideoNo,
+			"value": m.VideoID,
 		})
 	}
+	var filesModel []*model.File
 
-	addressesModel, _ := DB().Table("dhash_files").
-		Select("id", "name", "address").
-		OrderBy("created_at", "desc").
-		All()
+	fileRlt := model.DB().Find(&filesModel)
 
-	for _, m := range addressesModel {
+	if fileRlt.Error != nil {
+		panic(fileRlt.Error)
+	}
+	for _, m := range filesModel {
 		addresses = append(addresses, map[string]string{
-			"field": m["name"].(string),
-			"value": m["address"].(string),
+			"field": m.Name,
+			"value": m.Address,
 		})
 	}
 
@@ -99,7 +103,7 @@ func VideoSliceTable() (t table.Table) {
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")
-	formList.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
+	formList.SetTable("dhash_video_slices").SetTitle("Slice").SetDescription("Slice")
 	return
 }
 
