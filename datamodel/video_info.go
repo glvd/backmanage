@@ -107,7 +107,7 @@ func VideoInsert(values form2.Values) error {
 		values.Add("poster_path", filepath.Join("data", "info", v.No, "image.jpg"))
 		values.Add("thumb_path", filepath.Join("data", "info", v.No, "thumb.jpg"))
 		values.Add("info_path", filepath.Join("data", "info", v.No, ".info"))
-		values.Add("internal_id", v.InternalID)
+		values.Add("video_id", v.ID)
 		values.Add("intro", v.Intro)
 		values.Add("actors", v.RoleString())
 		values.Add("tags", v.TagString())

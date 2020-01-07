@@ -57,7 +57,7 @@ func VideoSliceTable() (t table.Table) {
 	info.SetTable("video_slices").SetTitle("Slice").SetDescription("Slice")
 
 	var videos, addresses []map[string]string
-	videosModel, err := DB().Table("videos").Select("id", "video_no", "video_id").OrderBy("created_at", "desc").All()
+	videosModel, err := DB().Table("dhash_video_infos").Select("id", "video_no", "video_id").OrderBy("created_at", "desc").All()
 	if err != nil {
 		panic(err)
 	}
@@ -68,7 +68,7 @@ func VideoSliceTable() (t table.Table) {
 		})
 	}
 
-	addressesModel, _ := DB().Table("files").
+	addressesModel, _ := DB().Table("dhash_files").
 		Select("id", "name", "address").
 		OrderBy("created_at", "desc").
 		All()

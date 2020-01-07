@@ -396,6 +396,8 @@ github.com/javscrape/go-scrape v0.0.11 h1:z/P+Rn0RF3lrOdxtdGtdi8LqyN1b49yLtPoh+M
 github.com/javscrape/go-scrape v0.0.11/go.mod h1:FWy+t9QDIUAoisooZMCQGP7wXG1IaOSR+/fPosM/j18=
 github.com/javscrape/go-scrape v0.0.12 h1:dHS5HDQAWXm10QQpvkfDMl37xY2mUPN7DR7GNqxUQmk=
 github.com/javscrape/go-scrape v0.0.12/go.mod h1:FWy+t9QDIUAoisooZMCQGP7wXG1IaOSR+/fPosM/j18=
+github.com/javscrape/go-scrape v0.0.13 h1:bnESM3DNesqctxHYO3hZXe/39BwQiWrlbUzAOa6CmJA=
+github.com/javscrape/go-scrape v0.0.13/go.mod h1:FWy+t9QDIUAoisooZMCQGP7wXG1IaOSR+/fPosM/j18=
 github.com/jbenet/go-cienv v0.0.0-20150120210510-1bb1476777ec/go.mod h1:rGaEvXB4uRSZMmzKNLoXvTu1sfx+1kv/DojUlPrSZGs=
 github.com/jbenet/go-cienv v0.1.0 h1:Vc/s0QbQtoxX8MwwSLWWh+xNNZvM3Lw7NsTcHrvvhMc=
 github.com/jbenet/go-cienv v0.1.0/go.mod h1:TqNnHUmJgXau0nCzC7kXWeotg3J9W34CUv5Djy1+FlA=
