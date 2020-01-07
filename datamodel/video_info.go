@@ -10,6 +10,7 @@ import (
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
 	"github.com/goextension/log"
+	"github.com/google/uuid"
 	"os"
 	"path/filepath"
 	"strings"
@@ -25,12 +26,12 @@ func VideoInfoTable() (t table.Table) {
 		Exportable: true,
 		Connection: table.DefaultConnectionName,
 		PrimaryKey: table.PrimaryKey{
-			Type: db.Int,
+			Type: db.Varchar,
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
 	info := t.GetInfo().HideFilterArea()
-	info.AddField("ID", "id", db.Int).FieldSortable()
+	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "" {
 			return ""
@@ -64,7 +65,7 @@ func VideoInfoTable() (t table.Table) {
 	//edit/add form
 	formList := t.GetForm()
 	formList.SetBeforeInsert(VideoInsert)
-
+	formList.AddField("ID", "id", db.Varchar, form.Default).FieldDefault(uuid.New().String()).FieldNotAllowEdit()
 	formList.AddField("VideoNo", "video_no", db.Varchar, form.Text).FieldNotAllowEdit()
 	//formList.AddField("PosterPath", "poster_path", db.Varchar, form.Text)
 	//formList.AddField("ThumbPath", "thumb_path", db.Varchar, form.Text)

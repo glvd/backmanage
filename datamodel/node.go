@@ -9,6 +9,7 @@ import (
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
 	"github.com/goextension/log"
+	"github.com/google/uuid"
 )
 
 // NodeTable ...
@@ -16,10 +17,10 @@ func NodeTable() (t table.Table) {
 	cfg := table.DefaultConfig()
 	//cfg.PrimaryKey.Type = db.Varchar
 	//cfg.PrimaryKey.Name = "id"
-
+	cfg.PrimaryKey.Type = db.Varchar
 	t = table.NewDefaultTable(cfg)
 	info := t.GetInfo()
-	info.AddField("ID", "id", db.Int).FieldSortable()
+	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	info.AddField("NodeID", "node_id", db.Varchar)
 	info.AddField("NodeAddr", "node_addr", db.Text)
 	info.AddField("SyncData", "sync", db.Tinyint).FieldDisplay(func(value types.FieldModel) interface{} {
@@ -51,11 +52,7 @@ func NodeTable() (t table.Table) {
 	formList := t.GetForm()
 	formList.SetBeforeInsert(NodeInfo)
 	formList.SetBeforeUpdate(NodeInfo)
-	formList.SetPostHook(func(values form2.Values) error {
-		log.Infow("post hook")
-		return nil
-	})
-	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowAdd().FieldNotAllowEdit()
+	formList.AddField("ID", "id", db.Varchar, form.Default).FieldDefault(uuid.New().String()).FieldNotAllowEdit()
 	formList.AddField("NodeAddr", "node_addr", db.Varchar, form.Text)
 	formList.AddField("NodeID", "node_id", db.Varchar, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()
 	//formList.AddField("NodeStatus", "node_status", db.Int, form.Text).FieldNotAllowAdd().FieldNotAllowEdit()

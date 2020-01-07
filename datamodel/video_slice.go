@@ -24,12 +24,12 @@ func VideoSliceTable() (t table.Table) {
 		Exportable: false,
 		Connection: table.DefaultConnectionName,
 		PrimaryKey: table.PrimaryKey{
-			Type: db.Int,
+			Type: db.Varchar,
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
 	info := t.GetInfo()
-	info.AddField("ID", "id", db.Int).FieldSortable()
+	info.AddField("ID", "id", db.Varchar).FieldSortable()
 	//info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 	//	if value.Value == "" {
 	//		return ""
@@ -84,7 +84,7 @@ func VideoSliceTable() (t table.Table) {
 	formList := t.GetForm()
 	formList.SetBeforeInsert(FilterVideoID())
 	formList.SetBeforeUpdate(FilterVideoID())
-	formList.AddField("ID", "id", db.Int, form.Default).FieldNotAllowEdit().FieldNotAllowAdd()
+	formList.AddField("ID", "id", db.Varchar, form.Default).FieldDefault(uuid.New().String()).FieldNotAllowEdit()
 	formList.AddField("VideoID", "video_id", db.Varchar, form.SelectSingle).FieldOptions(videos).FieldDisplay(func(model types.FieldModel) interface{} {
 		//log.Infow("slice", "model", model)
 		return model.Value
