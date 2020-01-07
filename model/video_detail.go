@@ -30,7 +30,7 @@ type Sample struct {
 	Model
 	Index   string
 	Addr    string //sample address
-	VideoID string `gorm:"varchar(36) column:video_id"`
+	VideoID string `gorm:"varchar(36) column:video_internal_id"`
 }
 
 // VideoDetail ...
