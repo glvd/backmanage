@@ -59,7 +59,7 @@ func VideoSliceTable() (t table.Table) {
 	var videos, addresses []map[string]string
 	var videosModel []*model.VideoInfo
 
-	videoRlt := model.DB().Order("created_at desc").Limit(model.LoadGlobalInt("video.limit")).Find(&videosModel)
+	videoRlt := model.DB().Order("created_at desc").Limit(model.LoadGlobal("video.limit")).Find(&videosModel)
 	if videoRlt.Error != nil {
 		panic(videoRlt.Error)
 	}
@@ -72,7 +72,7 @@ func VideoSliceTable() (t table.Table) {
 	}
 	var filesModel []*model.File
 
-	fileRlt := model.DB().Order("created_at desc").Limit(model.LoadGlobalInt("file.limit")).Find(&filesModel)
+	fileRlt := model.DB().Order("created_at desc").Limit(model.LoadGlobal("file.limit")).Find(&filesModel)
 
 	if fileRlt.Error != nil {
 		panic(fileRlt.Error)

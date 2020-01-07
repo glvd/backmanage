@@ -9,8 +9,9 @@ import (
 // Global ...
 type Global struct {
 	Model
-	Key   string
-	Value string
+	Key     string
+	Value   string
+	Comment string
 }
 
 var _global map[string]string

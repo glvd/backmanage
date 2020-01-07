@@ -35,6 +35,9 @@ func GlobalTable() (t table.Table) {
 	info.AddField("Value", "value", db.Text).FieldFilterable(types.FilterType{
 		Operator: types.FilterOperatorLike,
 	}).FieldEditAble(editType.Text)
+	info.AddField("Comment", "comment", db.Text).FieldFilterable(types.FilterType{
+		Operator: types.FilterOperatorLike,
+	})
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.DatetimeRange})
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 
@@ -52,6 +55,7 @@ func GlobalTable() (t table.Table) {
 	formList.AddField("ID", "id", db.Varchar, form.Default).FieldDefault(uuid.New().String()).FieldNotAllowEdit()
 	formList.AddField("Key", "key", db.Varchar, form.Text)
 	formList.AddField("Value", "value", db.Varchar, form.Text)
+	formList.AddField("Comment", "comment", db.Varchar, form.Text)
 	formList.SetTable("dhash_globals").SetTitle("Globals").SetDescription("Globals")
 
 	formList.SetPostHook(func(values form2.Values) error {
