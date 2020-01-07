@@ -30,7 +30,7 @@ func VideoInfoTable() (t table.Table) {
 		},
 	})
 	info := t.GetInfo().HideFilterArea()
-	info.AddField("ID", "id", db.Varchar).FieldSortable()
+	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("Poster", "poster_path", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		if value.Value == "" {
 			return ""
@@ -100,6 +100,7 @@ func VideoInsert(values form2.Values) error {
 		if err != nil {
 			return err
 		}
+		log.Infow("insert", "values", values)
 		values.Add("poster_path", filepath.Join("data", "info", v.No, "image.jpg"))
 		values.Add("thumb_path", filepath.Join("data", "info", v.No, "thumb.jpg"))
 		values.Add("info_path", filepath.Join("data", "info", v.No, ".info"))

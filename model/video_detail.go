@@ -71,6 +71,7 @@ type VideoDetail struct {
 
 // OnlineVideoJSON ...
 type OnlineVideoJSON struct {
+	InternalID   string   `gorm:"column:internal_id;varchar(36);not null" sql:"index" json:"id"`
 	No           string   `json:"no"`            //编号
 	Intro        string   `json:"intro"`         //简介
 	Alias        []string `json:"alias"`         //别名，片名

@@ -21,7 +21,7 @@ func init() {
 }
 
 // RefreshGlobal ...
-func RefreshGlobal() {
+func RefreshGlobal(f func(key string, value string)) {
 	_globalMutex.Lock()
 	defer _globalMutex.Unlock()
 	var globalList []*Global
@@ -33,6 +33,7 @@ func RefreshGlobal() {
 	}
 	for _, g := range globalList {
 		_global[g.Key] = g.Value
+		f(g.Key, g.Value)
 	}
 }
 

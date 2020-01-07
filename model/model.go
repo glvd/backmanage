@@ -12,12 +12,9 @@ import (
 
 const mysqlSource = "%s:%s@tcp(%s)/%s?loc=%s&charset=utf8mb4&parseTime=true"
 
-// Model base model definition, including fields `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt`, which could be embedded in your model
-//    type User struct {
-//      gorm.Model
-//    }
+// Model ...
 type Model struct {
-	ID        int        `gorm:"primary_key"`
+	ID        string     `gorm:"varchar(36);primary_key"`
 	CreatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP"`
 	UpdatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0)"`
 	DeletedAt *time.Time `sql:"index"`

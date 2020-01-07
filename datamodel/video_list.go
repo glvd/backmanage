@@ -18,7 +18,7 @@ func VideoListTable() (t table.Table) {
 		Exportable: true,
 		Connection: table.DefaultConnectionName,
 		PrimaryKey: table.PrimaryKey{
-			Type: db.Int,
+			Type: db.Varchar,
 			Name: table.DefaultPrimaryKeyName,
 		},
 	})
