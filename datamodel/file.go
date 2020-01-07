@@ -24,7 +24,7 @@ func FileTable() (t table.Table) {
 		},
 	})
 	info := t.GetInfo()
-	info.AddField("ID", "id", db.Varchar).FieldSortable()
+	info.AddField("ID", "id", db.Int).FieldSortable()
 	info.AddField("Address", "address", db.Text).FieldDisplay(func(value types.FieldModel) interface{} {
 		return "<a target=\"_blank\" href=\"" + "/uploads/" + value.Value + "\">" + value.Value + "</a>"
 	})
@@ -42,6 +42,9 @@ func FileTable() (t table.Table) {
 	//edit/add form
 	formList := t.GetForm()
 	formList.SetBeforeInsert(func(values form2.Values) error {
+		//if values.Get("id") == "" {
+		//	values.Add("id", uuid.New().String())
+		//}
 		log.Printf("f:%+v", values)
 		fname := values.Get("_filename_address")
 		if fname != "" && values.Get("name") == "" {
