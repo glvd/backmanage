@@ -9,8 +9,8 @@ import (
 	"github.com/glvd/go-admin/template/types/form"
 	editType "github.com/glvd/go-admin/template/types/table"
 	"github.com/goextension/log"
+	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
-	uuid "github.com/satori/go.uuid"
 	"strings"
 )
 
@@ -43,8 +43,8 @@ func VideoSliceTable() (t table.Table) {
 	//})
 
 	info.AddField("VideoID", "video_id", db.Varchar).FieldDisplay(func(value types.FieldModel) interface{} {
-		fromString, err := uuid.FromString(value.Value)
-		if err != nil || uuid.Equal(fromString, uuid.Nil) {
+		fromString, err := uuid.Parse(value.Value)
+		if err != nil || fromString.String() == uuid.Nil.String() {
 			return "invalid id!"
 		}
 		return value.Value

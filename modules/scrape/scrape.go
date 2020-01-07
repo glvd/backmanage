@@ -36,7 +36,7 @@ func NewScrape() (s scrape.IScrape) {
 	once.Do(func() {
 		s = newScrape()
 	})
-	return
+	return Scrape
 }
 
 // NewScrape ...
