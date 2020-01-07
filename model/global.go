@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/goextension/log"
+	"strconv"
 	"sync"
 )
 
@@ -26,15 +27,22 @@ func RefreshGlobal(f func(key string, value string)) {
 	defer _globalMutex.Unlock()
 	var globalList []*Global
 
-	db := DB().Find(globalList)
+	db := DB().Find(&globalList)
 	if db.Error != nil {
 		log.Errorw("refresh", "error", db.Error)
 		return
 	}
 	for _, g := range globalList {
 		_global[g.Key] = g.Value
-		f(g.Key, g.Value)
+		if f != nil {
+			f(g.Key, g.Value)
+		}
 	}
+}
+
+// GlobalOnStart ...
+func GlobalOnStart() {
+	RefreshGlobal(nil)
 }
 
 // LoadGlobal ...
@@ -43,4 +51,16 @@ func LoadGlobal(key string) string {
 		return v
 	}
 	return ""
+}
+
+// LoadGlobalInt ...
+func LoadGlobalInt(key string) int64 {
+	if v, b := _global[key]; b {
+		i, err := strconv.ParseInt(v, 10, 64)
+		if err != nil {
+			return 0
+		}
+		return i
+	}
+	return 0
 }
