@@ -48,20 +48,31 @@ func GlobalOnStart() {
 
 // LoadGlobal ...
 func LoadGlobal(key string) string {
+	return LoadGlobalD(key, "")
+}
+
+// LoadGlobalD ...
+func LoadGlobalD(key string, d string) string {
 	if v, b := _global[key]; b {
 		return v
 	}
-	return ""
+	return d
 }
 
 // LoadGlobalInt ...
 func LoadGlobalInt(key string) int64 {
+	return LoadGlobalIntD(key, 0)
+
+}
+
+// LoadGlobalIntD ...
+func LoadGlobalIntD(key string, d int64) int64 {
 	if v, b := _global[key]; b {
 		i, err := strconv.ParseInt(v, 10, 64)
 		if err != nil {
-			return 0
+			return d
 		}
 		return i
 	}
-	return 0
+	return d
 }
