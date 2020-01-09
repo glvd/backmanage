@@ -56,12 +56,13 @@ func VideoSliceTable() (t table.Table) {
 	info.AddField("UpdateTime", "updated_at", db.Timestamp)
 	info.SetTable("dhash_video_slices").SetTitle("Slice").SetDescription("Slice")
 
-	var videos, addresses []map[string]string
+	var videos, addresses, nodes []map[string]string
 	var videosModel []*model.VideoInfo
 
 	videoRlt := model.DB().Order("created_at desc").Limit(model.LoadGlobal("video.limit")).Find(&videosModel)
 	if videoRlt.Error != nil {
-		panic(videoRlt.Error)
+		log.Errorw("videos", "error", videoRlt.Error)
+		return
 	}
 
 	for _, m := range videosModel {
@@ -75,12 +76,26 @@ func VideoSliceTable() (t table.Table) {
 	fileRlt := model.DB().Order("created_at desc").Limit(model.LoadGlobal("file.limit")).Find(&filesModel)
 
 	if fileRlt.Error != nil {
-		panic(fileRlt.Error)
+		log.Errorw("files", "error", fileRlt.Error)
+		return
 	}
 	for _, m := range filesModel {
 		addresses = append(addresses, map[string]string{
 			"field": m.Name,
 			"value": m.Address,
+		})
+	}
+	var nodesModel []*model.Node
+	nodeRlt := model.DB().Order("created_at desc").Limit(model.LoadGlobalInt("node.limit")).Find(&nodesModel)
+	if nodeRlt.Error != nil {
+		log.Errorw("nodes", "error", nodeRlt.Error)
+		return
+	}
+
+	for _, m := range nodesModel {
+		nodes = append(nodes, map[string]string{
+			"field": m.NodeAddr,
+			"value": m.ID,
 		})
 	}
 
@@ -99,6 +114,11 @@ func VideoSliceTable() (t table.Table) {
 		//log.Infow("slice", "model", model)
 		return model.Value
 	})
+
+	formList.AddField("Node", "node", db.Varchar, form.SelectSingle).FieldOptions(nodes).FieldDisplay(func(model types.FieldModel) interface{} {
+		return model.Value
+	})
+
 	//t.GetInfo().SetTabGroups(types.
 	//	NewTabGroups("video_no", "intro", "created_at").
 	//	AddGroup("source_path", "tags", "actors"))
