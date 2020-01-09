@@ -104,6 +104,10 @@ func VideoSliceTable() (t table.Table) {
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")
 	formList.SetTable("dhash_video_slices").SetTitle("Slice").SetDescription("Slice")
+	formList.SetPostHook(func(values form2.Values) error {
+		log.Infow("slice hook", "values", values)
+		return nil
+	})
 	return
 }
 

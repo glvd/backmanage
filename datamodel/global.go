@@ -28,7 +28,7 @@ func GlobalTable() (t table.Table) {
 	})
 
 	info := t.GetInfo()
-	info.AddField("ID", "id", db.Varchar).FieldSortable()
+	info.AddField("ID", "id", db.Varchar).FieldWidth(360).FieldSortable()
 	info.AddField("Key", "key", db.Text).FieldFilterable(types.FilterType{
 		Operator: types.FilterOperatorLike,
 	}).FieldEditAble(editType.Text)
