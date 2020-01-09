@@ -50,6 +50,7 @@ func VideoSliceTable() (t table.Table) {
 		return value.Value
 	}).FieldSortable().FieldEditAble(editType.Text).FieldFilterable(types.FilterType{Operator: types.FilterOperatorLike})
 	info.AddField("Address", "address", db.Varchar)
+	info.AddField("Node", "node", db.Varchar)
 	info.AddField("Progress", "progress", db.Varchar)
 	info.AddField("Status", "status", db.Tinyint)
 	info.AddField("CreateTime", "created_at", db.Timestamp).FieldFilterable(types.FilterType{FormType: form.Datetime})
