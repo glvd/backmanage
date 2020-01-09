@@ -7,10 +7,14 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"net/url"
 	"reflect"
+	"strings"
 	"time"
 )
 
 const mysqlSource = "%s:%s@tcp(%s)/%s?loc=%s&charset=utf8mb4&parseTime=true"
+
+// Prefix ...
+var Prefix = "glvd"
 
 // Model ...
 type Model struct {
@@ -47,7 +51,7 @@ func connect(db config.Database) *gorm.DB {
 	}
 	//设置默认表名前缀
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
-		return "dhash_" + defaultTableName
+		return strings.Join([]string{Prefix, defaultTableName}, "_")
 	}
 
 	return engine
