@@ -1,15 +1,15 @@
 package datamodel
 
 import (
-	template2 "github.com/glvd/go-admin/template"
-	"github.com/glvd/go-admin/template/chartjs"
-	"github.com/glvd/go-admin/template/types"
-	"github.com/glvd/themes/adminlte/components/chart_legend"
-	"github.com/glvd/themes/adminlte/components/description"
-	"github.com/glvd/themes/adminlte/components/infobox"
-	"github.com/glvd/themes/adminlte/components/productlist"
-	"github.com/glvd/themes/adminlte/components/progress_group"
-	"github.com/glvd/themes/adminlte/components/smallbox"
+	template2 "github.com/GoAdminGroup/go-admin/template"
+	"github.com/GoAdminGroup/go-admin/template/chartjs"
+	"github.com/GoAdminGroup/go-admin/template/types"
+	"github.com/GoAdminGroup/themes/adminlte/components/chart_legend"
+	"github.com/GoAdminGroup/themes/adminlte/components/description"
+	"github.com/GoAdminGroup/themes/adminlte/components/infobox"
+	"github.com/GoAdminGroup/themes/adminlte/components/productlist"
+	"github.com/GoAdminGroup/themes/adminlte/components/progress_group"
+	"github.com/GoAdminGroup/themes/adminlte/components/smallbox"
 	"html/template"
 )
 
