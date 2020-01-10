@@ -5,7 +5,7 @@
       "port": "3306",
       "user": "root",
       "pwd": "111111",
-      "name": "GoAdminGroup",
+      "name": "glvd",
       "max_idle_con": 50,
       "max_open_con": 150,
       "driver": "mysql"
