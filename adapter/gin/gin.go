@@ -7,15 +7,15 @@ package gin
 import (
 	"bytes"
 	"errors"
+	"github.com/GoAdminGroup/go-admin/adapter"
+	"github.com/GoAdminGroup/go-admin/context"
+	"github.com/GoAdminGroup/go-admin/engine"
+	"github.com/GoAdminGroup/go-admin/modules/config"
+	"github.com/GoAdminGroup/go-admin/plugins"
+	"github.com/GoAdminGroup/go-admin/plugins/admin/models"
+	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/constant"
+	"github.com/GoAdminGroup/go-admin/template/types"
 	"github.com/gin-gonic/gin"
-	"github.com/glvd/go-admin/adapter"
-	"github.com/glvd/go-admin/context"
-	"github.com/glvd/go-admin/engine"
-	"github.com/glvd/go-admin/modules/config"
-	"github.com/glvd/go-admin/plugins"
-	"github.com/glvd/go-admin/plugins/admin/models"
-	"github.com/glvd/go-admin/plugins/admin/modules/constant"
-	"github.com/glvd/go-admin/template/types"
 	"net/http"
 	"strings"
 )
@@ -31,20 +31,25 @@ func init() {
 	engine.Register(new(Gin))
 }
 
+// User ...
 func (gins *Gin) User(ci interface{}) (models.UserModel, bool) {
 	return gins.GetUser(ci, gins)
 }
 
+// Use ...
 func (gins *Gin) Use(router interface{}, plugs []plugins.Plugin) error {
 	return gins.GetUse(router, plugs, gins)
 }
 
+// Content ...
 func (gins *Gin) Content(ctx interface{}, getPanelFn types.GetPanelFn) {
 	gins.GetContent(ctx, getPanelFn, gins)
 }
 
+// HandlerFunc ...
 type HandlerFunc func(ctx *gin.Context) (types.Panel, error)
 
+// Content ...
 func Content(handler HandlerFunc) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		engine.Content(ctx, func(ctx interface{}) (types.Panel, error) {
@@ -53,6 +58,7 @@ func Content(handler HandlerFunc) gin.HandlerFunc {
 	}
 }
 
+// SetApp ...
 func (gins *Gin) SetApp(app interface{}) error {
 	var (
 		eng *gin.Engine
@@ -65,6 +71,7 @@ func (gins *Gin) SetApp(app interface{}) error {
 	return nil
 }
 
+// AddHandler ...
 func (gins *Gin) AddHandler(method, path string, plug plugins.Plugin) {
 	gins.app.Handle(strings.ToUpper(method), path, func(c *gin.Context) {
 		ctx := context.NewContext(c.Request)
@@ -91,10 +98,12 @@ func (gins *Gin) AddHandler(method, path string, plug plugins.Plugin) {
 	})
 }
 
+// Name ...
 func (gins *Gin) Name() string {
 	return "gin"
 }
 
+// SetContext ...
 func (gins *Gin) SetContext(contextInterface interface{}) adapter.WebFrameWork {
 	var (
 		ctx *gin.Context
@@ -108,31 +117,38 @@ func (gins *Gin) SetContext(contextInterface interface{}) adapter.WebFrameWork {
 	return &Gin{ctx: ctx}
 }
 
+// Redirect ...
 func (gins *Gin) Redirect() {
 	gins.ctx.Redirect(http.StatusFound, config.Get().Url("/login"))
 	gins.ctx.Abort()
 }
 
+// SetContentType ...
 func (gins *Gin) SetContentType() {
 	return
 }
 
+// Write ...
 func (gins *Gin) Write(body []byte) {
 	gins.ctx.Data(http.StatusOK, gins.HTMLContentType(), body)
 }
 
+// GetCookie ...
 func (gins *Gin) GetCookie() (string, error) {
 	return gins.ctx.Cookie(gins.CookieKey())
 }
 
+// Path ...
 func (gins *Gin) Path() string {
 	return gins.ctx.Request.URL.Path
 }
 
+// Method ...
 func (gins *Gin) Method() string {
 	return gins.ctx.Request.Method
 }
 
+// PjaxHeader ...
 func (gins *Gin) PjaxHeader() string {
 	return gins.ctx.Request.Header.Get(constant.PjaxHeader)
 }

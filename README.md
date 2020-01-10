@@ -1,1 +1,1 @@
-# glvd backend manage
+# GoAdminGroup backend manage

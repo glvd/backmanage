@@ -1,8 +1,8 @@
 package datamodel
 
 import (
-	"github.com/glvd/go-admin/modules/db"
-	"github.com/glvd/go-admin/plugins/admin/modules/table"
+	"github.com/GoAdminGroup/go-admin/modules/db"
+	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
 )
 
 var globalDB db.Connection

@@ -2,7 +2,7 @@ package model
 
 import (
 	"encoding/json"
-	"github.com/glvd/backmanage/modules/scrape"
+	"github.com/GoAdminGroup/backmanage/modules/scrape"
 	"strconv"
 	"strings"
 )

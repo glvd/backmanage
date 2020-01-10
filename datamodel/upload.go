@@ -2,7 +2,7 @@ package datamodel
 
 import (
 	"fmt"
-	"github.com/glvd/go-admin/modules/file"
+	"github.com/GoAdminGroup/go-admin/modules/file"
 	"mime/multipart"
 )
 

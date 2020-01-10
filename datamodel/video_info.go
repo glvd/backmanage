@@ -1,14 +1,14 @@
 package datamodel
 
 import (
-	"github.com/glvd/backmanage/model"
-	"github.com/glvd/backmanage/modules/scrape"
-	"github.com/glvd/go-admin/modules/db"
-	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
-	"github.com/glvd/go-admin/plugins/admin/modules/table"
-	"github.com/glvd/go-admin/template/types"
-	"github.com/glvd/go-admin/template/types/form"
-	editType "github.com/glvd/go-admin/template/types/table"
+	"github.com/GoAdminGroup/backmanage/model"
+	"github.com/GoAdminGroup/backmanage/modules/scrape"
+	"github.com/GoAdminGroup/go-admin/modules/db"
+	form2 "github.com/GoAdminGroup/go-admin/plugins/admin/modules/form"
+	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
+	"github.com/GoAdminGroup/go-admin/template/types"
+	"github.com/GoAdminGroup/go-admin/template/types/form"
+	editType "github.com/GoAdminGroup/go-admin/template/types/table"
 	"github.com/goextension/log"
 	"github.com/google/uuid"
 	"os"

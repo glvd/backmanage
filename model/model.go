@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"github.com/glvd/go-admin/modules/config"
+	"github.com/GoAdminGroup/go-admin/modules/config"
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
 	"net/url"
@@ -14,7 +14,7 @@ import (
 const mysqlSource = "%s:%s@tcp(%s)/%s?loc=%s&charset=utf8mb4&parseTime=true"
 
 // Prefix ...
-var Prefix = "glvd"
+var Prefix = "GoAdminGroup"
 
 // Model ...
 type Model struct {

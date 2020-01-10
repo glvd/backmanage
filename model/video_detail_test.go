@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/glvd/go-admin/modules/config"
+	"github.com/GoAdminGroup/go-admin/modules/config"
 	_ "github.com/go-sql-driver/mysql"
 	"testing"
 )

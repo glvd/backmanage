@@ -3,18 +3,21 @@ package login
 import (
 	"bytes"
 	"fmt"
-	"github.com/glvd/go-admin/modules/language"
-	"github.com/glvd/go-admin/modules/logger"
+	"github.com/GoAdminGroup/go-admin/modules/language"
+	"github.com/GoAdminGroup/go-admin/modules/logger"
 	"html/template"
 )
 
+// Login ...
 type Login struct {
 }
 
+// GetLoginComponent ...
 func GetLoginComponent() *Login {
 	return new(Login)
 }
 
+// GetTemplate ...
 func (l *Login) GetTemplate() (*template.Template, string) {
 	tmpl, err := template.New("login_theme1").
 		Funcs(template.FuncMap{
@@ -39,22 +42,27 @@ func (l *Login) GetTemplate() (*template.Template, string) {
 	return tmpl, "login_theme1"
 }
 
+// GetAssetList ...
 func (l *Login) GetAssetList() []string {
 	return AssetsList
 }
 
+// GetAsset ...
 func (l *Login) GetAsset(name string) ([]byte, error) {
 	return Asset(name[1:])
 }
 
+// GetName ...
 func (l *Login) GetName() string {
 	return "login"
 }
 
+// IsAPage ...
 func (l *Login) IsAPage() bool {
 	return true
 }
 
+// GetContent ...
 func (l *Login) GetContent() template.HTML {
 	buffer := new(bytes.Buffer)
 	tmpl, defineName := l.GetTemplate()

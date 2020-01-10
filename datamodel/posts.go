@@ -1,10 +1,10 @@
 package datamodel
 
 import (
-	"github.com/glvd/go-admin/modules/db"
-	"github.com/glvd/go-admin/plugins/admin/modules/table"
-	"github.com/glvd/go-admin/template/types/form"
-	editType "github.com/glvd/go-admin/template/types/table"
+	"github.com/GoAdminGroup/go-admin/modules/db"
+	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
+	"github.com/GoAdminGroup/go-admin/template/types/form"
+	editType "github.com/GoAdminGroup/go-admin/template/types/table"
 )
 
 // GetPostsTable return the model of table posts.

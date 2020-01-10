@@ -1,11 +1,11 @@
 package datamodel
 
 import (
-	"github.com/glvd/go-admin/modules/db"
-	form2 "github.com/glvd/go-admin/plugins/admin/modules/form"
-	"github.com/glvd/go-admin/plugins/admin/modules/table"
-	"github.com/glvd/go-admin/template/types"
-	"github.com/glvd/go-admin/template/types/form"
+	"github.com/GoAdminGroup/go-admin/modules/db"
+	form2 "github.com/GoAdminGroup/go-admin/plugins/admin/modules/form"
+	"github.com/GoAdminGroup/go-admin/plugins/admin/modules/table"
+	"github.com/GoAdminGroup/go-admin/template/types"
+	"github.com/GoAdminGroup/go-admin/template/types/form"
 	"github.com/google/uuid"
 	"log"
 )
