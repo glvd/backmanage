@@ -57,5 +57,6 @@ func VideoListTable() (t table.Table) {
 	//	AddGroup("source_path", "tags", "actors"))
 	//SetTabHeaders("profile1", "profile2")
 	formList.SetTable("videos").SetTitle("Videos").SetDescription("Videos")
+
 	return
 }

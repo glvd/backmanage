@@ -4,11 +4,9 @@ go 1.13
 
 require (
 	github.com/GoAdminGroup/go-admin v1.1.6
-	github.com/GoAdminGroup/themes v0.0.16
+	github.com/GoAdminGroup/themes v0.0.17-0.20200107101041-0962873f423d
 	github.com/gin-gonic/gin v1.5.0
 	github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0
-	github.com/glvd/go-admin v0.0.0-20191212104332-87d33985674a
-	github.com/glvd/themes v0.0.14
 	github.com/go-echarts/go-echarts v0.0.0-20190915064101-cbb3b43ade5d
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gobuffalo/packr v1.30.1 // indirect
