@@ -11,6 +11,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gobuffalo/packr v1.30.1 // indirect
 	github.com/goextension/log v0.0.2
+	github.com/gogf/gf v1.11.1 // indirect
 	github.com/google/uuid v1.1.1
 	github.com/ipfs/go-cid v0.0.4
 	github.com/ipfs/go-ipfs-files v0.0.6
@@ -22,5 +23,3 @@ require (
 	github.com/robfig/cron/v3 v3.0.0
 	github.com/satori/go.uuid v1.2.0
 )
-
-replace github.com/GoAdminGroup/go-admin v1.1.6 => github.com/glvd/go-admin v1.1.6002
