@@ -23,4 +23,4 @@ require (
 	github.com/satori/go.uuid v1.2.0
 )
 
-replace github.com/GoAdminGroup/go-admin v1.1.6 => github.com/glvd/go-admin v1.1.6001
+replace github.com/GoAdminGroup/go-admin v1.1.6 => github.com/glvd/go-admin v1.1.6002
