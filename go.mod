@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/GoAdminGroup/go-admin v1.1.6
 	github.com/GoAdminGroup/themes v0.0.17-0.20200107101041-0962873f423d
+	github.com/RichardKnop/machinery v1.7.3
 	github.com/gin-gonic/gin v1.5.0
 	github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0
 	github.com/glvd/cup v0.0.0-20200109111707-c24bb415823a
