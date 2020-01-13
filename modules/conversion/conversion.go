@@ -17,31 +17,20 @@ func Start() {
 }
 
 func Send() error {
-	s := &tasks.Signature{
-		UUID:                        "",
-		Name:                        "",
-		RoutingKey:                  "",
-		ETA:                         nil,
-		GroupUUID:                   "",
-		GroupTaskCount:              0,
-		Args:                        nil,
-		Headers:                     nil,
-		Priority:                    0,
-		Immutable:                   false,
-		RetryCount:                  0,
-		RetryTimeout:                0,
-		OnSuccess:                   nil,
-		OnError:                     nil,
-		ChordCallback:               nil,
-		BrokerMessageGroupId:        "",
-		SQSReceiptHandle:            "",
-		StopTaskDeletionOnError:     false,
-		IgnoreWhenTaskNotRegistered: false,
+	signature := &tasks.Signature{
+		Name: "slice",
+		Args: []tasks.Arg{
+			{
+				Type:  "[]byte",
+				Value: "",
+			},
+		},
 	}
-	result, e := _service.Send(s)
+	result, e := _service.Send(signature)
 	if e != nil {
 		return e
 	}
 	log.Infow("send:", "result", result)
+
 	return nil
 }
