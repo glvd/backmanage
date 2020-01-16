@@ -3,7 +3,7 @@ module github.com/GoAdminGroup/backmanage
 go 1.13
 
 require (
-	github.com/GoAdminGroup/go-admin v1.1.6
+	github.com/GoAdminGroup/go-admin v1.1.7
 	github.com/GoAdminGroup/themes v0.0.17-0.20200107101041-0962873f423d
 	github.com/RichardKnop/machinery v1.7.3
 	github.com/gin-gonic/gin v1.5.0
@@ -25,4 +25,4 @@ require (
 	github.com/satori/go.uuid v1.2.0
 )
 
-replace github.com/GoAdminGroup/go-admin v1.1.6 => github.com/glvd/go-admin v1.1.6002
+replace github.com/GoAdminGroup/go-admin v1.1.7 => github.com/glvd/go-admin v1.1.7001

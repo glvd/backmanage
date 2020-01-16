@@ -201,8 +201,8 @@ github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0 h1:Jpk/8MjmgWkabf
 github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0/go.mod h1:nc/ZA5rETHQWGuLabvuiNvtbWSxieV7FJ712akX2Zzo=
 github.com/glvd/cup v0.0.0-20200109111707-c24bb415823a h1:eDs2cgFXyPXeGlWdyYxpgWtbkyjTYPwlSLlYxy7C1/s=
 github.com/glvd/cup v0.0.0-20200109111707-c24bb415823a/go.mod h1:KFj2J2PuFaDMnu2hatfhQ3akzuoV1oH/DOdl6qZX2p8=
-github.com/glvd/go-admin v1.1.6002 h1:x7Oa3cK4t8Hseb2CMM3eZ+kW8Yq1el94v0qsHZclPHU=
-github.com/glvd/go-admin v1.1.6002/go.mod h1:Z2kLuUwHGOhr4/Rk5ykT9JQBONz3bcKfI2Of/cWkDo4=
+github.com/glvd/go-admin v1.1.7001 h1:Nzt0CBvNnNv/FLqZlgAff04dezWSoFvThF5Ezyobinc=
+github.com/glvd/go-admin v1.1.7001/go.mod h1:Z2kLuUwHGOhr4/Rk5ykT9JQBONz3bcKfI2Of/cWkDo4=
 github.com/glvd/go-fftool v0.0.2 h1:q9wH2moxFGGhYcyaaIOg0VOi9pr0zSBSzq5QyuVi2Vg=
 github.com/glvd/go-fftool v0.0.2/go.mod h1:KpKbaiA/CqvK+Ds/Id9jazxfFy9yFL6Dh7WGxyk3tpY=
 github.com/go-check/check v0.0.0-20180628173108-788fd7840127 h1:0gkP6mzaMqkmpcJYCFOLkIBwI7xFExG03bbkOkCvUPI=
