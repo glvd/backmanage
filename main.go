@@ -1,10 +1,10 @@
 package main
 
 import (
-	_ "github.com/GoAdminGroup/backmanage/adapter/gin"
 	"github.com/GoAdminGroup/backmanage/datamodel"
 	"github.com/GoAdminGroup/backmanage/echarts"
 	"github.com/GoAdminGroup/backmanage/model"
+	_ "github.com/GoAdminGroup/go-admin/adapter/gin"
 	"github.com/GoAdminGroup/go-admin/plugins/admin"
 	"github.com/GoAdminGroup/go-admin/template/chartjs"
 	_ "github.com/GoAdminGroup/themes/adminlte"
@@ -19,7 +19,6 @@ import (
 	"github.com/GoAdminGroup/go-admin/template"
 	"github.com/GoAdminGroup/go-admin/template/types"
 	"github.com/gin-gonic/gin"
-	template2 "html/template"
 	"net/http"
 )
 
@@ -52,9 +51,9 @@ func main() {
 	//cfg.CustomFootHtml = template2.HTML(`<div style="display:none;">
 	//<script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1278156902&web_id=1278156902"></script>
 	//</div>`)
-	cfg.CustomHeadHtml = template2.HTML(`<link rel="icon" type="image/png" sizes="32x32" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-32x32.png">
+	cfg.CustomHeadHtml = `<link rel="icon" type="image/png" sizes="32x32" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-64x64.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-16x16.png">`)
+        <link rel="icon" type="image/png" sizes="16x16" href="//quick.go-admin.cn/official/assets/imgs/icons.ico/favicon-16x16.png">`
 	model.InitDatabase(cfg)
 
 	err := model.Sync(model.DB())
